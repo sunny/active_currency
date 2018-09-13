@@ -15,24 +15,20 @@ end
 ```
 
 ## Installation
-Add this line to your application's Gemfile:
+
+Add these lines to your application's Gemfile:
 
 ```rb
+# Store and retrieve the currency from the database.
 gem 'active_currency'
 ```
 
-And then execute:
-```bash
-$ bundle
-```
-
-Or install it yourself as:
-```bash
-$ gem install active_currency
-```
 
 ## Contributing
-Contribution directions go here.
+
+Please file issues and pull requests on GitHub.
 
 ## License
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+The gem is available as open source under the terms of the
+[MIT License](http://opensource.org/licenses/MIT).s
