@@ -32,7 +32,7 @@ RSpec.describe ActiveCurrency::RateStore do
         subject.get_rate("EUR", "USD")
 
         expect(Rails.cache)
-          .to have_received(:fetch).with(%w[active_currency rate EUR USD])
+          .to have_received(:fetch).with(%w[active_currency_rate EUR USD])
       end
     end
 
@@ -69,7 +69,7 @@ RSpec.describe ActiveCurrency::RateStore do
       subject.add_rate("EUR", "USD", 1.5)
 
       expect(Rails.cache)
-        .to have_received("delete").with(%w[active_currency rate EUR USD])
+        .to have_received("delete").with(%w[active_currency_rate EUR USD])
     end
 
     context "with a date" do
