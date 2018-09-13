@@ -17,12 +17,22 @@ Gem::Specification.new do |s|
   s.files =
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "rails", "~> 5.1.3"
+  # Rails plugin.
+  s.add_dependency "rails", "~> 5.0"
+
+  # The Rails app needs to use money-rails as well.
   s.add_dependency "money-rails"
+
+  # API to get the currencies.
   s.add_dependency "eu_central_bank"
 
+  # DB for the dummy app.
   s.add_development_dependency "sqlite3"
+
+  # Unit testing.
   s.add_development_dependency "rspec-rails"
+
+  # Travel through time in specs.
   s.add_development_dependency "timecop"
 
   # Useful for `binding.pry` in development.
