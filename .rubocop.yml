@@ -19,3 +19,6 @@ Rails:
 
 Rails/FilePath:
   EnforcedStyle: slashes
+
+Rails/ApplicationRecord:
+  Enabled: false
