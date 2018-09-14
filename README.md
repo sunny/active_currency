@@ -69,7 +69,14 @@ end
 
 ## Contributing
 
-Please file issues and pull requests on GitHub.
+Please file issues and pull requests
+[on GitHub](https://github.com/sunny/active_currency).
+
+In developemnt, launch specs and code linter by calling:
+
+```sh
+bundle exec rake
+```
 
 ## License
 
