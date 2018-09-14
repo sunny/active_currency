@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ActiveCurrency
+  # Currency Store that uses our ActiveRecord model to save and retrieve a
+  # value.
   class DatabaseStore
     def get_rate(from, to, date = nil)
       ActiveCurrency::Rate.current_value_for(from, to, date)

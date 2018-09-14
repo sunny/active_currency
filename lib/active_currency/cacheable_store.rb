@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ActiveCurrency
+  # Mixin to add caching capability to a rate store when getting the current
+  # cache.
   module CacheableStore
     def get_rate(from, to, date = nil)
       return super if date

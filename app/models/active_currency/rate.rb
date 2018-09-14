@@ -8,8 +8,10 @@ module ActiveCurrency
               presence: true
     validates :value, numericality: { greater_than: 0 }
 
+    scope :before, ->(date) { where(arel_table[:created_at].lt(date)) }
+
     def self.current_value_for(from, to, date = nil)
-      scope = date ? where(arel_table[:created_at].lt(date)) : all
+      scope = date ? before(date) : all
 
       scope
         .where(from: from, to: to)
