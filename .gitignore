@@ -5,3 +5,7 @@ spec/dummy/db/*.sqlite3
 spec/dummy/db/*.sqlite3-journal
 spec/dummy/log/*.log
 spec/dummy/tmp/
+
+# Do not track the Gemfile.lock since this is a gem that does not block
+# specific versions to users of the gem.
+Gemfile.lock
