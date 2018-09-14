@@ -22,6 +22,8 @@ Or by looking through the database:
 
 ```rb
 ActiveCurrency::Rate.current_value_for('EUR', 'USD', 10.days.ago)
+# => 1.151
+ActiveCurrency::Rate.where(from: 'EUR', to: 'USD').order(:created_at).last.value
 # => 1.162
 ```
 
