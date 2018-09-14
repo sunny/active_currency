@@ -24,7 +24,8 @@ Add these lines to your application's `Gemfile`:
 
 ```rb
 # Store and retrieve the currency from the database.
-gem 'active_currency'
+gem 'active_currency',
+    git: 'git@github.com:sunny/active_currency.git'
 ```
 
 And in your `config/initializers/money.rb`:
