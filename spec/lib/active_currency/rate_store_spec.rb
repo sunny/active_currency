@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 RSpec.describe ActiveCurrency::RateStore do
   subject { described_class.new(currencies) }
@@ -20,62 +20,62 @@ RSpec.describe ActiveCurrency::RateStore do
     Timecop.freeze(Time.new(2000, 1, 1).utc, &example)
   end
 
-  describe "#get_rate" do
-    context "without a date" do
-      it "calls the database" do
-        expect(subject.get_rate("EUR", "USD")).to eq(1.5)
+  describe '#get_rate' do
+    context 'without a date' do
+      it 'calls the database' do
+        expect(subject.get_rate('EUR', 'USD')).to eq(1.5)
         expect(ActiveCurrency::Rate)
-          .to have_received(:current_value_for).with("EUR", "USD", nil)
+          .to have_received(:current_value_for).with('EUR', 'USD', nil)
       end
 
-      it "calls the cache" do
-        subject.get_rate("EUR", "USD")
+      it 'calls the cache' do
+        subject.get_rate('EUR', 'USD')
 
         expect(Rails.cache)
           .to have_received(:fetch).with(%w[active_currency_rate EUR USD])
       end
     end
 
-    context "with a date" do
+    context 'with a date' do
       let(:date) { 1.day.ago }
 
-      it "calls the database" do
-        expect(subject.get_rate("EUR", "USD", date)).to eq(1.5)
+      it 'calls the database' do
+        expect(subject.get_rate('EUR', 'USD', date)).to eq(1.5)
         expect(ActiveCurrency::Rate)
-          .to have_received(:current_value_for).with("EUR", "USD", date)
+          .to have_received(:current_value_for).with('EUR', 'USD', date)
       end
 
-      it "does not call the cache" do
-        subject.get_rate("EUR", "USD", date)
+      it 'does not call the cache' do
+        subject.get_rate('EUR', 'USD', date)
 
         expect(Rails.cache).not_to have_received(:fetch)
       end
     end
   end
 
-  describe "#add_rate" do
-    it "creates a rate in the database" do
-      expect { subject.add_rate("EUR", "USD", 1.5) }
+  describe '#add_rate' do
+    it 'creates a rate in the database' do
+      expect { subject.add_rate('EUR', 'USD', 1.5) }
         .to change { ActiveCurrency::Rate.count }.by(1)
 
       rate = ActiveCurrency::Rate.last
-      expect(rate.from).to eq("EUR")
-      expect(rate.to).to eq("USD")
+      expect(rate.from).to eq('EUR')
+      expect(rate.to).to eq('USD')
       expect(rate.value).to eq(1.5)
       expect(rate.created_at).to eq(Time.zone.now)
     end
 
-    it "deletes the cache key" do
-      subject.add_rate("EUR", "USD", 1.5)
+    it 'deletes the cache key' do
+      subject.add_rate('EUR', 'USD', 1.5)
 
       expect(Rails.cache)
-        .to have_received("delete").with(%w[active_currency_rate EUR USD])
+        .to have_received('delete').with(%w[active_currency_rate EUR USD])
     end
 
-    context "with a date" do
-      it "assigns it to the currency_rate" do
+    context 'with a date' do
+      it 'assigns it to the currency_rate' do
         date = 1.day.ago
-        subject.add_rate("EUR", "USD", 1.5, date)
+        subject.add_rate('EUR', 'USD', 1.5, date)
 
         rate = ActiveCurrency::Rate.last
         expect(rate.created_at).to eq(date)

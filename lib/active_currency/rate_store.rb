@@ -1,5 +1,5 @@
 module ActiveCurrency
-  # DatabaseStore with cache.
+  # DatabaseStore with cache for calls without a date.
   class RateStore < DatabaseStore
     def get_rate(from, to, date = nil)
       return super if date
@@ -18,7 +18,7 @@ module ActiveCurrency
     private
 
     def cache_key(from, to)
-      ["active_currency_rate", from, to]
+      ['active_currency_rate', from, to]
     end
   end
 end

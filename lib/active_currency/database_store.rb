@@ -15,7 +15,7 @@ module ActiveCurrency
         from: from.to_s.upcase,
         to: to.to_s.upcase,
         value: rate,
-        created_at: date || Time.zone.now,
+        created_at: date || Time.zone.now
       )
     end
   end
