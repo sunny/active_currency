@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module ActiveCurrency
   class Rate < ApplicationRecord
     validates :from,
               :to,
-              inclusion: { in: -> v { Money.default_bank.store.currencies } },
+              inclusion: { in: ->(_v) { Money.default_bank.store.currencies } },
               presence: true
     validates :value, numericality: { greater_than: 0 }
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveCurrency
   class DatabaseStore
     attr_reader :currencies

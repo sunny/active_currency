@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveCurrency
   # DatabaseStore with cache for calls without a date.
   class RateStore < DatabaseStore

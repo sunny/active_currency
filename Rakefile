@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 begin
   require 'bundler/setup'
 rescue LoadError
@@ -25,6 +27,11 @@ begin
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec)
 rescue LoadError
+  puts 'RSpec load error'
 end
 
-task default: :spec
+require 'rubocop/rake_task'
+
+RuboCop::RakeTask.new
+
+task default: %i[spec rubocop]

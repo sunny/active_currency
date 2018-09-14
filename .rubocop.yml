@@ -1,0 +1,15 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - spec/dummy/db/schema.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
+Style/MixinUsage:
+  Exclude:
+    - spec/dummy/bin/*
+
+Style/Documentation:
+  Enabled: false

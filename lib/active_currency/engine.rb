@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveCurrency
   class Engine < ::Rails::Engine
     isolate_namespace ActiveCurrency
