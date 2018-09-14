@@ -5,8 +5,8 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
-- Prefer `value_for` to `current_value_for`
-- Support for older migrations
+- Support for Rails 3.2.
+- Prefer `value_for` to `current_value_for`.
 
 ## v0.1.0
 
