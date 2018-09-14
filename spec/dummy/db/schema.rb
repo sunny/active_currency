@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180914064834) do
+ActiveRecord::Schema.define(version: 2018_09_14_064834) do
 
   create_table "active_currency_rates", force: :cascade do |t|
-    t.string "from"
-    t.string "to"
+    t.string "from", limit: 255
+    t.string "to", limit: 255
     t.float "value"
     t.datetime "created_at"
     t.index ["from", "to", "created_at"], name: "index_active_currency_rates_on_from_and_to_and_created_at"
