@@ -1,8 +1,20 @@
 # ActiveCurrency
 
-Rails plugin to retrieve and store the currency daily.
+Rails plugin to retrieve and store the currency rates daily to integrate
+with the `money-rails` gem.
 
-Integrates with the `money-rails` gem.
+## Rationale
+
+Storing the current currency rates database using ActiveCurrency provides the
+following advantages:
+
+- Find out what your daily currency rate was for your application at any given
+  time.
+- Does not need to call an API to get the rates when starting or restarting
+  your web server.
+- Choose how often you want to check for a currency (daily for example).
+- Your users do not suffer the cost of making calls to the bank rates API.
+- Your app does not go down when the bank rates API does.
 
 ## Usage
 
@@ -26,6 +38,14 @@ ActiveCurrency::Rate.current_value_for('EUR', 'USD', 10.days.ago)
 ActiveCurrency::Rate.where(from: 'EUR', to: 'USD').order(:created_at).last.value
 # => 1.162
 ```
+
+## Requirements
+
+Your Rails application should use the `money-rails` gem to represent and
+exchange money in several currencies.
+
+You will need a way to update the rates daily, with gems such as
+`sidekiq-scheduler` or `whenever`.
 
 ## Installation
 
