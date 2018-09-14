@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
 
   s.files =
-    Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
+    Dir['{app,db,lib}/**/*', 'MIT-LICENSE', 'README.md']
 
   # Rails plugin.
   s.add_dependency 'rails', '~> 5.0'
