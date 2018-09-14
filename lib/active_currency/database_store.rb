@@ -9,13 +9,13 @@ module ActiveCurrency
     end
 
     def get_rate(from, to, date = nil)
-      ActiveCurrency::Rate.current_value_for(from.upcase, to.upcase, date)
+      ActiveCurrency::Rate.current_value_for(from, to, date)
     end
 
     def add_rate(from, to, rate, date = nil)
       ActiveCurrency::Rate.create!(
-        from: from.to_s.upcase,
-        to: to.to_s.upcase,
+        from: from,
+        to: to,
         value: rate,
         created_at: date || Time.zone.now
       )

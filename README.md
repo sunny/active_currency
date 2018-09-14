@@ -18,6 +18,13 @@ Retrieve the current rate by using `Money`'s accessors:
 10.to_money('EUR').exchange_to('USD').cents
 ```
 
+Or by looking through the database:
+
+```rb
+ActiveCurrency::Rate.current_value_for('EUR', 'USD', 10.days.ago)
+# => 1.162
+```
+
 ## Installation
 
 Add these lines to your application's `Gemfile`:
