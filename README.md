@@ -5,47 +5,42 @@ with the `money-rails` gem.
 
 ## Rationale
 
-Storing the current currency rates database using ActiveCurrency provides the
-following advantages:
+Storing the current currency rates in the database using ActiveCurrency
+provides the following advantages:
 
-- Find out what your daily currency rate was for your application at any given
-  time.
+- Lets you find out what the currency rate you used in your application was
+  at any given time.
 - Does not need to call an API to get the rates when starting or restarting
   your web server.
 - Choose how often you want to check for a currency (daily for example).
 - Your users do not suffer the cost of making calls to the bank rates API.
 - Your app does not go down when the bank rates API does.
+- When fetching the current rate, it uses your application cache in order not
+  to have to do a database query.
 
 ## Usage
 
-Store the current rate regularly by calling in a scheduled job:
+Store the current rate regularly by calling in a scheduled job (using something
+like `sidekiq-scheduler` or `whenever`):
 
 ```rb
 ActiveCurrency::AddRates.new.call
 ```
 
-Retrieve the current rate by using `Money`'s accessors:
+You can then exchange money by using the Money gem:
 
 ```rb
 10.to_money('EUR').exchange_to('USD').cents
 ```
 
-Or by looking through the database:
+Or look up the currency rate:
 
 ```rb
 ActiveCurrency::Rate.current_value_for('EUR', 'USD', 10.days.ago)
 # => 1.151
-ActiveCurrency::Rate.where(from: 'EUR', to: 'USD').order(:created_at).last.value
-# => 1.162
+ActiveCurrency::Rate.where(from: 'EUR', to: 'USD').pluck(:value)
+# => [1.162, 1.162, 1.161, 1.61, 1.63, …]
 ```
-
-## Requirements
-
-Your Rails application should use the `money-rails` gem to represent and
-exchange money in several currencies.
-
-You will need a way to update the rates daily, with gems such as
-`sidekiq-scheduler` or `whenever`.
 
 ## Installation
 
@@ -57,7 +52,7 @@ gem 'active_currency',
     git: 'git@github.com:sunny/active_currency.git'
 ```
 
-And in your `config/initializers/money.rb`:
+And in `config/initializers/money.rb`:
 
 ```rb
 MoneyRails.configure do |config|
@@ -66,8 +61,8 @@ MoneyRails.configure do |config|
 end
 ```
 
-Then call `rake db:migrate` to create the table that holds the currency rates
-and fill it for the first time.
+Then call `bundle exec rake db:migrate` to create the table that holds
+the currency rates and fill it for the first time.
 
 ## Contributing
 
@@ -83,4 +78,4 @@ bundle exec rake
 ## License
 
 The gem is available as open source under the terms of the
-[MIT License](http://opensource.org/licenses/MIT).s
+[MIT License](http://opensource.org/licenses/MIT).
