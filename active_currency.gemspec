@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
     Dir['{app,db,lib}/**/*', 'MIT-LICENSE', 'README.md']
 
   # Rails plugin.
-  s.add_dependency 'rails', '~> 5.0'
+  s.add_dependency 'rails', '>= 3.2'
 
   # The Rails app needs to use money-rails as well.
   s.add_dependency 'money-rails'
