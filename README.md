@@ -71,7 +71,7 @@ Please file issues and pull requests
 In developemnt, launch specs and code linter by calling:
 
 ```sh
-bundle exec rake
+BUNDLE_GEMFILE=Gemfile-rails3.2 bundle exec rspec && bundle exec rake
 ```
 
 ## License
