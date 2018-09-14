@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe ActiveCurrency::RateStore do
   subject { described_class.new(currencies) }
-  let(:currencies) { %i[EUR SUD] }
+  let(:currencies) { %i[EUR USD] }
 
   # Mock cache
   before do

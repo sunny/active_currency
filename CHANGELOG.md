@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning].
 
 - Support for Rails 3.2.
 - Prefer `value_for` to `current_value_for`.
+- Add a `ActiveCurrency::MemoryRateStore`, useful in test mode.
 
 ## v0.1.0
 

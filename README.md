@@ -63,6 +63,23 @@ end
 Then call `bundle exec rake db:migrate` to create the table that holds
 the currency rates and fill it for the first time.
 
+## Tests
+
+In your app test suite you may not want to have to fill your database to be
+able to exchange currencies.
+
+For that, you can in `config/initializers/money.rb`:
+
+```rb
+if Rails.env.test?
+  rate_store = ActiveCurrency::MemoryRateStore.new.tap do |store|
+    store.add_rate('USD', 'EUR', 0.5)
+    store.add_rate('EUR', 'USD', 1.5)
+  end
+  config.default_bank = Money::Bank::VariableExchange.new(rate_store)
+end
+```
+
 ## Contributing
 
 Please file issues and pull requests
