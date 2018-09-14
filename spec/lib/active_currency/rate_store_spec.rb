@@ -14,7 +14,7 @@ RSpec.describe ActiveCurrency::RateStore do
 
   # Mock database
   before do
-    allow(ActiveCurrency::Rate).to receive(:current_value_for) { 1.5 }
+    allow(ActiveCurrency::Rate).to receive(:value_for) { 1.5 }
   end
 
   # Mock time
@@ -29,7 +29,7 @@ RSpec.describe ActiveCurrency::RateStore do
       it 'calls the database' do
         expect(get_rate).to eq(1.5)
         expect(ActiveCurrency::Rate)
-          .to have_received(:current_value_for).with('EUR', 'USD', nil)
+          .to have_received(:value_for).with('EUR', 'USD', nil)
       end
 
       it 'calls the cache' do
@@ -51,7 +51,7 @@ RSpec.describe ActiveCurrency::RateStore do
         it 'does not call the database' do
           get_rate
 
-          expect(ActiveCurrency::Rate).not_to have_received(:current_value_for)
+          expect(ActiveCurrency::Rate).not_to have_received(:value_for)
         end
       end
     end
@@ -62,7 +62,7 @@ RSpec.describe ActiveCurrency::RateStore do
       it 'calls the database' do
         expect(subject.get_rate('EUR', 'USD', date)).to eq(1.5)
         expect(ActiveCurrency::Rate)
-          .to have_received(:current_value_for).with('EUR', 'USD', date)
+          .to have_received(:value_for).with('EUR', 'USD', date)
       end
 
       it 'does not call the cache' do

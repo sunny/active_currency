@@ -10,7 +10,7 @@ module ActiveCurrency
 
     scope :before, ->(date) { where(arel_table[:created_at].lt(date)) }
 
-    def self.current_value_for(from, to, date = nil)
+    def self.value_for(from, to, date = nil)
       scope = date ? before(date) : all
 
       scope
@@ -18,6 +18,11 @@ module ActiveCurrency
         .order(:created_at)
         .last
         &.value
+    end
+
+    # DEPRECATED
+    def self.current_value_for(from, to, date = nil)
+      value_for(from, to, date)
     end
   end
 end

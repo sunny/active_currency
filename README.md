@@ -36,7 +36,7 @@ You can then exchange money by using the Money gem:
 Or look up the currency rate:
 
 ```rb
-ActiveCurrency::Rate.current_value_for('EUR', 'USD', 1.month.ago)
+ActiveCurrency::Rate.value_for('EUR', 'USD', 1.month.ago)
 # => 1.151
 ActiveCurrency::Rate.where(from: 'EUR', to: 'USD').pluck(:value)
 # => [1.162, 1.162, 1.161, 1.161, 1.163, …]
