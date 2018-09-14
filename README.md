@@ -21,7 +21,7 @@ following advantages:
 Store the current rate regularly by calling in a scheduled job:
 
 ```rb
-ActiveCurrency::AddRates.call
+ActiveCurrency::AddRates.new.call
 ```
 
 Retrieve the current rate by using `Money`'s accessors:
@@ -66,6 +66,8 @@ MoneyRails.configure do |config|
 end
 ```
 
+Then call `rake db:migrate` to create the table that holds the currency rates
+and fill it for the first time.
 
 ## Contributing
 
