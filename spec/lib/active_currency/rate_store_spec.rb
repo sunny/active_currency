@@ -24,17 +24,35 @@ RSpec.describe ActiveCurrency::RateStore do
 
   describe '#get_rate' do
     context 'without a date' do
+      let(:get_rate) { subject.get_rate('EUR', 'USD') }
+
       it 'calls the database' do
-        expect(subject.get_rate('EUR', 'USD')).to eq(1.5)
+        expect(get_rate).to eq(1.5)
         expect(ActiveCurrency::Rate)
           .to have_received(:current_value_for).with('EUR', 'USD', nil)
       end
 
       it 'calls the cache' do
-        subject.get_rate('EUR', 'USD')
+        get_rate
 
         expect(Rails.cache)
           .to have_received(:fetch).with(%w[active_currency_rate EUR USD])
+      end
+
+      context 'with a full cache' do
+        before do
+          allow(Rails.cache).to receive(:fetch) { 99.99 }
+        end
+
+        it 'returns the cached value' do
+          expect(get_rate).to eq(99.99)
+        end
+
+        it 'does not call the database' do
+          get_rate
+
+          expect(ActiveCurrency::Rate).not_to have_received(:current_value_for)
+        end
       end
     end
 
