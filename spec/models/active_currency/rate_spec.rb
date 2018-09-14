@@ -5,13 +5,19 @@ require 'spec_helper'
 RSpec.describe ActiveCurrency::Rate do
   before { ActiveCurrency::Rate.delete_all }
 
+  around { |example| Timecop.freeze(now, &example) }
+
+  let(:now) { Time.new(2018, 9, 14).in_time_zone }
+  let(:earlier) { Time.new(2018, 9, 13).in_time_zone }
+  let(:a_long_time_ago) { Time.new(2018, 1, 1).in_time_zone }
+
   describe '.value_for' do
     let!(:latest_rate) do
       ActiveCurrency::Rate.create!(
         from: 'EUR',
         to: 'USD',
         value: 1.42,
-        created_at: 1.hour.ago
+        created_at: earlier
       )
     end
 
@@ -20,7 +26,7 @@ RSpec.describe ActiveCurrency::Rate do
         from: 'EUR',
         to: 'USD',
         value: 1.5,
-        created_at: 1.month.ago
+        created_at: a_long_time_ago
       )
     end
 
