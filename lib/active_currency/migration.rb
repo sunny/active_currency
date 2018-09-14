@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# Helps support previous version of Rails in migrations.
 module ActiveCurrency
+  # Helps support previous version of Rails in migrations.
   if Rails.version > '4.1'
-    Migration < ActiveRecord::Migration[4.2]
+    class Migration < ActiveRecord::Migration[4.2]; end
   else
-    Migration < ActiveRecord::Migration
+    class Migration < ActiveRecord::Migration; end
   end
 end
