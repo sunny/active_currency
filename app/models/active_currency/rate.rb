@@ -11,7 +11,7 @@ module ActiveCurrency
     scope :before, ->(date) { where(arel_table[:created_at].lt(date)) }
 
     def self.value_for(from, to, date = nil)
-      scope = date ? before(date) : all
+      scope = date ? before(date) : all_scope
 
       scope
         .where(from: from, to: to)
@@ -23,6 +23,11 @@ module ActiveCurrency
     # DEPRECATED
     def self.current_value_for(from, to, date = nil)
       value_for(from, to, date)
+    end
+
+    # Scope retrocompatibility for Rails 3.2.
+    def self.all_scope
+      respond_to?(:scoped) ? scoped : all
     end
   end
 end
