@@ -13,3 +13,9 @@ Style/MixinUsage:
 
 Style/Documentation:
   Enabled: false
+
+Rails:
+  Enabled: true
+
+Rails/FilePath:
+  EnforcedStyle: slashes
