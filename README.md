@@ -18,6 +18,8 @@ provides the following advantages:
 - When fetching the current rate, it uses your application cache in order not
   to have to do a database query.
 
+To fetch the rates, it uses the [eu_central_bank] gem.
+
 ## Usage
 
 Store the current rate regularly by calling in a scheduled job (using something
@@ -95,3 +97,5 @@ BUNDLE_GEMFILE=Gemfile-rails3.2 bundle exec rspec && bundle exec rake
 
 The gem is available as open source under the terms of the
 [MIT License](http://opensource.org/licenses/MIT).
+
+[eu_central_bank]: https://github.com/RubyMoney/eu_central_bank
