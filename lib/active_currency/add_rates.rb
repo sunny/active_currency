@@ -23,6 +23,8 @@ module ActiveCurrency
 
     private
 
-    attr_reader :currencies
+    def currencies
+      @currencies.map(&:to_s).map(&:upcase)
+    end
   end
 end
