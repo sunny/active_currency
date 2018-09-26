@@ -16,20 +16,21 @@ RSpec.describe ActiveCurrency::AddRates do
       .to receive(:get_rate).with('EUR', 'CAD') { 1.12 }
   end
 
-  # Mock Money
+  # Mock store
+  let(:store) { instance_double ActiveCurrency::RateStore, add_rate: nil }
   before do
-    allow(Money).to receive(:add_rate)
+    allow(ActiveCurrency::RateStore).to receive(:new) { store }
   end
 
   shared_examples 'sets the rates' do
     it 'calls add_rate with the correct arguments' do
       subject
 
-      expect(Money).to have_received(:add_rate).exactly(4).times
-      expect(Money).to have_received(:add_rate).with('EUR', 'USD', 1.42)
-      expect(Money).to have_received(:add_rate).with('USD', 'EUR', 1 / 1.42)
-      expect(Money).to have_received(:add_rate).with('EUR', 'CAD', 1.12)
-      expect(Money).to have_received(:add_rate).with('CAD', 'EUR', 1 / 1.12)
+      expect(store).to have_received(:add_rate).exactly(4).times
+      expect(store).to have_received(:add_rate).with('EUR', 'USD', 1.42)
+      expect(store).to have_received(:add_rate).with('USD', 'EUR', 1 / 1.42)
+      expect(store).to have_received(:add_rate).with('EUR', 'CAD', 1.12)
+      expect(store).to have_received(:add_rate).with('CAD', 'EUR', 1 / 1.12)
     end
   end
 

@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+Fix:
+- Allow adding rates without setting the default store.
+
 ## v0.3.0
 
 Breaking changes:

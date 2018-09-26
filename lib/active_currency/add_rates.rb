@@ -16,8 +16,8 @@ module ActiveCurrency
         next if to == from
 
         rate = bank.get_rate(from, to)
-        Money.add_rate(from, to, rate)
-        Money.add_rate(to, from, 1 / rate)
+        store.add_rate(from, to, rate)
+        store.add_rate(to, from, 1 / rate)
       end
     end
 
@@ -25,6 +25,10 @@ module ActiveCurrency
 
     def currencies
       @currencies.map(&:to_s).map(&:upcase)
+    end
+
+    def store
+      @store ||= ActiveCurrency::RateStore.new
     end
   end
 end
