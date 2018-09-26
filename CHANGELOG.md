@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+## v0.3.0
+
 Breaking changes:
 - Move the list of currencies to AddRate.
 - Remove `current_value_for` that was deprecated in v0.2.0.
