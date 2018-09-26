@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+Breaking change:
+- Remove `ActiveCurrency::MemoryRateStore` prefer `Money::RatesStore::Memory`.
+
 ## v0.4.0
 
 Fix:

@@ -23,7 +23,7 @@ To fetch the rates, it uses the [eu_central_bank] gem.
 ## Usage
 
 Store the current rate regularly by calling in a scheduled job (using something
-like `sidekiq-scheduler` or `whenever`):
+like `sidekiq-scheduler` or `whenever`) with the currencies you want to store:
 
 ```rb
 ActiveCurrency::AddRates.new(%w[EUR USD]).call
@@ -70,11 +70,11 @@ the currency rates and fill it for the first time.
 In your app test suite you may not want to have to fill your database to be
 able to exchange currencies.
 
-For that, you can in `config/initializers/money.rb`:
+For that, you should use a fake rate store in `config/initializers/money.rb`:
 
 ```rb
 if Rails.env.test?
-  rate_store = ActiveCurrency::MemoryRateStore.new.tap do |store|
+  rate_store = Money::RatesStore::Memory.new.tap do |store|
     store.add_rate('USD', 'EUR', 0.5)
     store.add_rate('EUR', 'USD', 1.5)
   end
