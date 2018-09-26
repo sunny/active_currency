@@ -5,7 +5,8 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
-Features:
+Breaking changes:
+- Move the list of currencies to AddRate.
 - Add eu_central_bank dependency condition.
 
 ## v0.2.0

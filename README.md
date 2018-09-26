@@ -26,7 +26,7 @@ Store the current rate regularly by calling in a scheduled job (using something
 like `sidekiq-scheduler` or `whenever`):
 
 ```rb
-ActiveCurrency::AddRates.new.call
+ActiveCurrency::AddRates.new(%w[EUR USD]).call
 ```
 
 You can then exchange money by using the Money gem:
@@ -57,8 +57,8 @@ And in `config/initializers/money.rb`:
 
 ```rb
 MoneyRails.configure do |config|
-  rate_store = ActiveCurrency::RateStore.new(%w[EUR USD])
-  config.default_bank = Money::Bank::VariableExchange.new(rate_store)
+  config.default_bank =
+    Money::Bank::VariableExchange.new(ActiveCurrency::RateStore.new)
 end
 ```
 

@@ -4,7 +4,6 @@ module ActiveCurrency
   class Rate < ActiveRecord::Base
     validates :from,
               :to,
-              inclusion: { in: ->(_v) { Money.default_bank.store.currencies } },
               presence: true
     validates :value, numericality: { greater_than: 0 }
 

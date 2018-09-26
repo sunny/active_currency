@@ -3,7 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe ActiveCurrency::AddRates do
-  subject { described_class.new.call }
+  subject { described_class.new(currencies).call }
+  let(:currencies) { %w[EUR USD] }
 
   # Mock EuCentralBank
   before do
@@ -18,38 +19,31 @@ RSpec.describe ActiveCurrency::AddRates do
     allow(Money).to receive(:add_rate)
   end
 
-  it 'sets the rate' do
-    subject
-
-    expect(Money).to have_received(:add_rate).twice
-    expect(Money).to have_received(:add_rate).with('EUR', 'USD', 1.42)
-    expect(Money).to have_received(:add_rate).with('USD', 'EUR', 1 / 1.42)
-  end
-
-  context 'when the bank store is in symbols' do
-    before do
-      allow(Money.default_bank.store).to receive(:currencies) { %i[EUR USD] }
-    end
-
-    it 'sets the rate' do
+  shared_examples 'sets the rates' do
+    it 'calls add_rate with the correct arguments' do
       subject
 
       expect(Money).to have_received(:add_rate).twice
+      expect(Money).to have_received(:add_rate).with('EUR', 'USD', 1.42)
+      expect(Money).to have_received(:add_rate).with('USD', 'EUR', 1 / 1.42)
     end
   end
 
-  context 'when the bank store is in currencies' do
+  context 'when given currencies' do
+    include_examples 'sets the rates'
+  end
+
+  context 'when given currencies in symbols' do
+    let(:currencies) { %i[EUR USD] }
+
+    include_examples 'sets the rates'
+  end
+
+  context 'when given currencies in Currency instances' do
     let(:eur) { Money::Currency.new('EUR') }
     let(:usd) { Money::Currency.new('USD') }
+    let(:currencies) { [eur, usd] }
 
-    before do
-      allow(Money.default_bank.store).to receive(:currencies) { [eur, usd] }
-    end
-
-    it 'sets the rate' do
-      subject
-
-      expect(Money).to have_received(:add_rate).twice
-    end
+    include_examples 'sets the rates'
   end
 end
