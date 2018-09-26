@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning].
 
 Breaking changes:
 - Move the list of currencies to AddRate.
+- Remove `current_value_for` that was deprecated in v0.2.0.
 - Add eu_central_bank dependency condition.
 
 ## v0.2.0

@@ -19,11 +19,6 @@ module ActiveCurrency
         &.value
     end
 
-    # DEPRECATED
-    def self.current_value_for(from, to, date = nil)
-      value_for(from, to, date)
-    end
-
     # Scope retrocompatibility for Rails 3.2.
     def self.all_scope
       respond_to?(:scoped) ? scoped : all
