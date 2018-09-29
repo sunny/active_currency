@@ -9,6 +9,7 @@ require 'active_currency/database_store'
 require 'active_currency/cacheable_store'
 require 'active_currency/rate_store'
 require 'active_currency/add_rates'
+require 'active_currency/bank'
 
 module ActiveCurrency
 end

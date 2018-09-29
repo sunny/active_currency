@@ -57,8 +57,7 @@ And in `config/initializers/money.rb`:
 
 ```rb
 MoneyRails.configure do |config|
-  config.default_bank =
-    Money::Bank::VariableExchange.new(ActiveCurrency::RateStore.new)
+  config.default_bank = ActiveCurrency::Bank.new
 end
 ```
 

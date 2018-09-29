@@ -8,6 +8,9 @@ This project adheres to [Semantic Versioning].
 Breaking change:
 - Remove `ActiveCurrency::MemoryRateStore` prefer `Money::RatesStore::Memory`.
 
+Feature:
+- Add `ActiveCurrency::Bank` to simplify app's initializer.
+
 ## v0.4.0
 
 Fix:
