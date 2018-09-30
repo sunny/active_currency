@@ -3,7 +3,6 @@
 require 'spec_helper'
 
 RSpec.describe ActiveCurrency::AddRates do
-  subject { described_class.new(currencies).call }
   let(:currencies) { %w[EUR USD CAD] }
 
   # Mock EuCentralBank
@@ -34,11 +33,27 @@ RSpec.describe ActiveCurrency::AddRates do
     end
   end
 
-  include_examples 'sets the rates'
-
-  context 'when given a variety of currency formats' do
-    let(:currencies) { ['eur', :USD, Money::Currency.new('CAD')] }
+  context 'with #call' do
+    subject { described_class.new(currencies).call }
 
     include_examples 'sets the rates'
+
+    context 'when given a variety of currency formats' do
+      let(:currencies) { ['eur', :USD, Money::Currency.new('CAD')] }
+
+      include_examples 'sets the rates'
+    end
+  end
+
+  context 'with .call' do
+    subject { described_class.call(currencies) }
+
+    include_examples 'sets the rates'
+
+    context 'when given a variety of currency formats' do
+      let(:currencies) { ['eur', :USD, Money::Currency.new('CAD')] }
+
+      include_examples 'sets the rates'
+    end
   end
 end

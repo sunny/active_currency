@@ -26,7 +26,7 @@ Store the current rate regularly by calling in a scheduled job (using something
 like `sidekiq-scheduler` or `whenever`) with the currencies you want to store:
 
 ```rb
-ActiveCurrency::AddRates.new(%w[EUR USD]).call
+ActiveCurrency::AddRates.call(%w[EUR USD])
 ```
 
 You can then exchange money by using the Money gem:

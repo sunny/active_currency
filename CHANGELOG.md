@@ -10,6 +10,7 @@ Breaking change:
 
 Feature:
 - Add `ActiveCurrency::Bank` to simplify app's initializer.
+- Add `.call` to `ActiveCurrency::AddRates` to simplify app's calls.
 
 ## v0.4.0
 

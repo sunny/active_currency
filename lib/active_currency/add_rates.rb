@@ -21,6 +21,10 @@ module ActiveCurrency
       end
     end
 
+    def self.call(currencies)
+      new(currencies).call
+    end
+
     private
 
     def currencies
