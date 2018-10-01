@@ -12,6 +12,9 @@ Feature:
 - Add `ActiveCurrency::Bank` to simplify app's initializer.
 - Add `.call` to `ActiveCurrency::AddRates` to simplify app's calls.
 
+Fix:
+- Remove migration that adds rates automatically.
+
 ## v0.4.0
 
 Fix:

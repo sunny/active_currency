@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_14_064834) do
+ActiveRecord::Schema.define(version: 2018_09_11_202100) do
 
   create_table "active_currency_rates", force: :cascade do |t|
     t.string "from", limit: 255
