@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+## v1.0.0
+
+🎉
+
 ## v0.5.0
 
 Breaking change:
