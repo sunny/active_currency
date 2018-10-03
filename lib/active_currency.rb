@@ -3,7 +3,6 @@
 require 'money-rails'
 require 'eu_central_bank'
 
-require 'active_currency/migration'
 require 'active_currency/engine'
 require 'active_currency/database_store'
 require 'active_currency/cacheable_store'

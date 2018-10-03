@@ -5,9 +5,12 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+Fix:
+- Do not require the migration class while loading the app.
+
 ## v1.0.0
 
-🎉
+Nothing new, just released for the Paris.rb meetup! 🎉
 
 ## v0.5.0
 

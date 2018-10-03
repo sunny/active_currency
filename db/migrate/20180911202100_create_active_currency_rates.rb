@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'active_currency/migration'
+
 class CreateActiveCurrencyRates < ActiveCurrency::Migration
   def change
     create_table :active_currency_rates do |t|
