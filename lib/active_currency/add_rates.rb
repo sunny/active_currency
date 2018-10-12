@@ -17,7 +17,7 @@ module ActiveCurrency
 
         rate = bank.get_rate(from, to)
         store.add_rate(from, to, rate)
-        store.add_rate(to, from, 1 / rate)
+        store.add_rate(to, from, 1.fdiv(rate))
       end
     end
 
