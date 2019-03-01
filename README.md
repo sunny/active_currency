@@ -15,10 +15,9 @@ provides the following advantages:
 - Choose how often you want to check for a currency (daily for example).
 - Your users do not suffer the cost of making calls to the bank rates API.
 - Your app does not go down when the bank rates API does.
-- When fetching the current rate, it uses your application cache in order not
-  to have to do a database query.
 
-To fetch the rates, it uses the [eu_central_bank] gem.
+To fetch the rates, it uses the [eu_central_bank] gem and uses your application
+cache when getting the current rate in order to save on database queries.
 
 ## Usage
 
@@ -29,13 +28,13 @@ like `sidekiq-scheduler` or `whenever`) with the currencies you want to store:
 ActiveCurrency::AddRates.call(%w[EUR USD])
 ```
 
-You can then exchange money by using the Money gem:
+You can then exchange money by using the Money gem helpers:
 
 ```rb
 10.to_money('EUR').exchange_to('USD').cents
 ```
 
-Or look up the currency rate:
+If you need to look up the previous currency rates:
 
 ```rb
 ActiveCurrency::Rate.value_for('EUR', 'USD', 1.month.ago)
@@ -69,13 +68,13 @@ the currency rates and fill it for the first time.
 In your app test suite you may not want to have to fill your database to be
 able to exchange currencies.
 
-For that, you should use a fake rate store in `config/initializers/money.rb`:
+For that, you can use a fake rate store in your `rails_helper.rb`:
 
 ```rb
-if Rails.env.test?
+MoneyRails.configure do |config|
   rate_store = Money::RatesStore::Memory.new.tap do |store|
-    store.add_rate('USD', 'EUR', 0.5)
-    store.add_rate('EUR', 'USD', 1.5)
+    store.add_rate('USD', 'EUR', 1.5)
+    store.add_rate('EUR', 'USD', 1.4)
   end
   config.default_bank = Money::Bank::VariableExchange.new(rate_store)
 end
@@ -86,7 +85,7 @@ end
 Please file issues and pull requests
 [on GitHub](https://github.com/sunny/active_currency).
 
-In developemnt, launch specs and code linter by calling:
+In development, launch specs and the code linter by calling:
 
 ```sh
 BUNDLE_GEMFILE=Gemfile-rails3.2 bundle exec rspec && bundle exec rake
