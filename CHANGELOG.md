@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+## v1.0.1
+
 Fix:
 - Do not require the migration class while loading the app.
 
