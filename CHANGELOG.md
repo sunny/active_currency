@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning].
 
 Fix:
 - Do not require the migration class while loading the app.
+- Fix calling `before` with durations on Rails 3.2 apps.
 
 ## v1.0.0
 

@@ -22,3 +22,6 @@ Rails/FilePath:
 
 Rails/ApplicationRecord:
   Enabled: false
+
+Style/Lambda:
+  Enabled: false

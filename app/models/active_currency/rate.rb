@@ -2,12 +2,13 @@
 
 module ActiveCurrency
   class Rate < ActiveRecord::Base
-    validates :from,
-              :to,
-              presence: true
+    validates :from, presence: true
+    validates :to, presence: true
     validates :value, numericality: { greater_than: 0 }
 
-    scope :before, ->(date) { where(arel_table[:created_at].lt(date)) }
+    scope :before, ->(date) {
+      where(arel_table[:created_at].lt(date.to_datetime))
+    }
 
     def self.value_for(from, to, date = nil)
       scope = date ? before(date) : all_scope
