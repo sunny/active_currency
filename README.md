@@ -85,10 +85,18 @@ end
 Please file issues and pull requests
 [on GitHub](https://github.com/sunny/active_currency).
 
-In development, launch specs and the code linter by calling:
+## Development
+
+Install:
 
 ```sh
-BUNDLE_GEMFILE=Gemfile-rails3.2 bundle exec rspec && bundle exec rake
+BUNDLE_GEMFILE=Gemfile-rails3.2 bundle install
+```
+
+launch specs and the code linter by calling:
+
+```sh
+BUNDLE_GEMFILE=Gemfile-rails3.2 bundle exec rake
 ```
 
 ## License
