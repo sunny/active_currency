@@ -21,9 +21,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-rails4-dependencies-{{ checksum "Gemfile-rails4.2.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v1-rails4-dependencies-
 
       - run:
           name: install dependencies
@@ -33,7 +33,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          key: v1-rails4-dependencies-{{ checksum "Gemfile-rails4.2.lock" }}
 
       # Database setup
       - run: bundle exec rake db:create
@@ -78,9 +78,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-rails3-dependencies-{{ checksum "Gemfile-rails3.2.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v1-rails3-dependencies-
 
       - run:
           name: install dependencies
@@ -90,7 +90,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          key: v1-rails3-dependencies-{{ checksum "Gemfile-rails3.2.lock" }}
 
       # Database setup
       - run: bundle exec rake db:create
