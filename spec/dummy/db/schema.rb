@@ -18,5 +18,5 @@ ActiveRecord::Schema.define(version: 2018_09_11_202100) do
     t.datetime "created_at"
   end
 
-  add_index ["from", "to", "created_at"], name: "index_active_currency_rates_on_from_and_to_and_created_at"
+  add_index "active_currency_rates", ["from", "to", "created_at"], name: "index_active_currency_rates"
 end
