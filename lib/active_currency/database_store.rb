@@ -5,7 +5,7 @@ module ActiveCurrency
   # value.
   class DatabaseStore
     def get_rate(from, to, date = nil)
-      ActiveCurrency::Rate.value_for(from, to, date&.to_datetime)
+      ActiveCurrency::Rate.value_for(from, to, date)
     end
 
     def add_rate(from, to, rate, date = nil)
@@ -13,7 +13,7 @@ module ActiveCurrency
         from: from,
         to: to,
         value: rate,
-        created_at: date&.to_datetime || Time.zone.now
+        created_at: date || Time.zone.now
       )
     end
   end

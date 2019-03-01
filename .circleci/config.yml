@@ -64,7 +64,7 @@ jobs:
 
   build_rails3:
     docker:
-      - image: circleci/ruby:2.4.1-node-browsers
+      - image: circleci/ruby:2.3.7-node-browsers
 
     working_directory: ~/repo
 

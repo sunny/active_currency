@@ -92,8 +92,9 @@ RSpec.describe ActiveCurrency::RateStore do
     end
 
     context 'with a date' do
+      let(:date) { 1.day.ago }
+
       it 'assigns it to the currency_rate' do
-        date = 1.day.ago
         subject.add_rate('EUR', 'USD', 1.5, date)
 
         rate = ActiveCurrency::Rate.last

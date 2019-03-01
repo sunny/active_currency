@@ -7,7 +7,7 @@ module ActiveCurrency
     validates :value, numericality: { greater_than: 0 }
 
     scope :before, ->(date) {
-      where(arel_table[:created_at].lt(date.to_datetime))
+      where(arel_table[:created_at].lt(date))
     }
 
     def self.value_for(from, to, date = nil)
