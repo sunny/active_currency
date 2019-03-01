@@ -17,6 +17,7 @@ jobs:
          name: "Setup custom environment variables"
          command: |
            echo 'export BUNDLE_GEMFILE=Gemfile-rails4.2' >> $BASH_ENV
+           echo 'export RAILS_ENV=test' >> $BASH_ENV
 
       # Download and cache dependencies
       - restore_cache:
@@ -74,6 +75,7 @@ jobs:
          name: "Setup custom environment variables"
          command: |
            echo 'export BUNDLE_GEMFILE=Gemfile-rails3.2' >> $BASH_ENV
+           echo 'export RAILS_ENV=test' >> $BASH_ENV
 
       # Download and cache dependencies
       - restore_cache:
