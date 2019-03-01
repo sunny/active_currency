@@ -90,13 +90,13 @@ Please file issues and pull requests
 Install:
 
 ```sh
-BUNDLE_GEMFILE=Gemfile-rails3.2 bundle install
+BUNDLE_GEMFILE=Gemfile-rails4.2 bundle install
 ```
 
-launch specs and the code linter by calling:
+Launch specs and linters:
 
 ```sh
-BUNDLE_GEMFILE=Gemfile-rails3.2 bundle exec rake
+BUNDLE_GEMFILE=Gemfile-rails4.2 bundle exec rake
 ```
 
 ## License
