@@ -4,6 +4,64 @@
 #
 version: 2
 jobs:
+  build_rails6.0:
+    docker:
+      - image: circleci/ruby:2.5.0-node-browsers
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+         name: "Setup custom environment variables"
+         command: |
+           echo 'export BUNDLE_GEMFILE=Gemfile-rails6.0' >> $BASH_ENV
+           echo 'export RAILS_ENV=test' >> $BASH_ENV
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-rails6.0-dependencies-{{ checksum "Gemfile-rails6.0.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-rails6.0-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-rails6.0-dependencies-{{ checksum "Gemfile-rails6.0.lock" }}
+
+      # Database setup
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+
+      # run tests!
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
+              circleci tests split --split-by=timings)"
+
+            bundle exec rspec \
+              --format progress \
+              --format RspecJunitFormatter \
+              --out /tmp/test-results/rspec.xml \
+              --format progress \
+              $TEST_FILES
+
+      # collect reports
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+
   build_rails5.2:
     docker:
       - image: circleci/ruby:2.4.1-node-browsers
@@ -182,6 +240,7 @@ workflows:
   version: 2
   all_versions:
     jobs:
+      - build_rails6.0
       - build_rails5.2
       - build_rails4.2
       - build_rails3.2
