@@ -35,6 +35,9 @@ Gem::Specification.new do |s|
   # Unit testing.
   s.add_development_dependency 'rspec-rails'
 
+  # Formatter for unit testing that Circle-CI enjoys.
+  s.add_development_dependency 'rspec_junit_formatter'
+
   # Travel through time in specs.
   s.add_development_dependency 'timecop'
 
