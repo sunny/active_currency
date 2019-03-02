@@ -236,6 +236,6 @@ workflows:
   all_versions:
     jobs:
       - build_rails6.0
-      #- build_rails5.2
-      #- build_rails4.2
-      #- build_rails3.2
+      - build_rails5.2
+      - build_rails4.2
+      - build_rails3.2
