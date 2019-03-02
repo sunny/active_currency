@@ -20,9 +20,10 @@ jobs:
            echo 'export RAILS_ENV=test' >> $BASH_ENV
 
       - run:
-         name: "Install latest bundler"
+         name: "Install bundler"
          command: |
-           gem install bundler
+            sudo gem uninstall --force bundler 
+            sudo gem install bundler -v 2.0.1
 
       # Download and cache dependencies
       - restore_cache:
