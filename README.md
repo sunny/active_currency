@@ -24,7 +24,8 @@ cache when getting the current rate in order to save on database queries.
 ## Usage
 
 Store the current rate regularly by calling in a scheduled job (using something
-like `sidekiq-scheduler` or `whenever`) with the currencies you want to store:
+like `sidekiq-scheduler`, `whenever` or `active_scheduler`) with the currencies
+you want to store:
 
 ```rb
 ActiveCurrency::AddRates.call(%w[EUR USD])
