@@ -19,6 +19,11 @@ jobs:
            echo 'export BUNDLE_GEMFILE=Gemfile-rails6.0' >> $BASH_ENV
            echo 'export RAILS_ENV=test' >> $BASH_ENV
 
+      - run:
+         name: "Install latest bundler"
+         command: |
+           gem install bundler
+
       # Download and cache dependencies
       - restore_cache:
           keys:
