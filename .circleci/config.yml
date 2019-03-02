@@ -8,9 +8,9 @@ jobs:
     docker:
       - image: circleci/ruby:2.6.0-node
         environment:
-          BUNDLER_VERSION: 2.0.1
           BUNDLE_GEMFILE: Gemfile-rails6.0
           RAILS_ENV: test
+          BUNDLER_VERSION: 2.0.1
 
     working_directory: ~/repo
 
@@ -30,7 +30,7 @@ jobs:
             - v1-rails6.0-dependencies-
 
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: |
             bundle -v
             bundle install --jobs=4 --retry=3 --path vendor/bundle
@@ -69,17 +69,14 @@ jobs:
   build_rails5.2:
     docker:
       - image: circleci/ruby:2.4.1-node-browsers
+        environment:
+          BUNDLE_GEMFILE: Gemfile-rails4.2
+          RAILS_ENV: test
 
     working_directory: ~/repo
 
     steps:
       - checkout
-
-      - run:
-         name: "Setup custom environment variables"
-         command: |
-           echo 'export BUNDLE_GEMFILE=Gemfile-rails5.2' >> $BASH_ENV
-           echo 'export RAILS_ENV=test' >> $BASH_ENV
 
       # Download and cache dependencies
       - restore_cache:
@@ -89,7 +86,7 @@ jobs:
             - v1-rails5.2-dependencies-
 
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
 
@@ -127,17 +124,14 @@ jobs:
   build_rails4.2:
     docker:
       - image: circleci/ruby:2.4.1-node-browsers
+        environment:
+          BUNDLE_GEMFILE: Gemfile-rails4.2
+          RAILS_ENV: test
 
     working_directory: ~/repo
 
     steps:
       - checkout
-
-      - run:
-         name: "Setup custom environment variables"
-         command: |
-           echo 'export BUNDLE_GEMFILE=Gemfile-rails4.2' >> $BASH_ENV
-           echo 'export RAILS_ENV=test' >> $BASH_ENV
 
       # Download and cache dependencies
       - restore_cache:
@@ -147,7 +141,7 @@ jobs:
             - v1-rails4.2-dependencies-
 
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
 
@@ -185,17 +179,14 @@ jobs:
   build_rails3.2:
     docker:
       - image: circleci/ruby:2.3.7-node-browsers
+        environment:
+          BUNDLE_GEMFILE: Gemfile-rails3.2
+          RAILS_ENV: test
 
     working_directory: ~/repo
 
     steps:
       - checkout
-
-      - run:
-         name: "Setup custom environment variables"
-         command: |
-           echo 'export BUNDLE_GEMFILE=Gemfile-rails3.2' >> $BASH_ENV
-           echo 'export RAILS_ENV=test' >> $BASH_ENV
 
       # Download and cache dependencies
       - restore_cache:
@@ -205,7 +196,7 @@ jobs:
             - v1-rails3.2-dependencies-
 
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
 
