@@ -17,11 +17,11 @@ jobs:
     steps:
       - checkout
 
-      - run:	
-         name: "Install latest bundler"	
-         command: |	
+      - run:
+         name: "Install latest bundler"
+         command: |
            gem install bundler
-           
+
       # Download and cache dependencies
       - restore_cache:
           keys:
