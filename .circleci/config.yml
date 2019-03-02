@@ -22,7 +22,7 @@ jobs:
       - run:
          name: "Install latest bundler"
          command: |
-           gem install bundler
+           sudo gem install bundler
 
       # Download and cache dependencies
       - restore_cache:
