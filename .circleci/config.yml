@@ -9,18 +9,19 @@ jobs:
       - image: circleci/ruby:2.6.0-node
         environment:
           BUNDLER_VERSION: 2.0.1
+          BUNDLE_GEMFILE: Gemfile-rails6.0
+          RAILS_ENV: test
 
     working_directory: ~/repo
 
     steps:
       - checkout
 
-      - run:
-         name: "Setup custom environment variables"
-         command: |
-           echo 'export BUNDLE_GEMFILE=Gemfile-rails6.0' >> $BASH_ENV
-           echo 'export RAILS_ENV=test' >> $BASH_ENV
-
+      - run:	
+         name: "Install latest bundler"	
+         command: |	
+           gem install bundler
+           
       # Download and cache dependencies
       - restore_cache:
           keys:
