@@ -10,11 +10,11 @@ with the `money-rails` gem.
 Storing the current currency rates in the database using ActiveCurrency
 provides the following advantages:
 
-- Lets you find out what the currency rate you used in your application was
-  at any given time.
+- Lets you query for the currency rate you actually used in your application at
+  any given time.
 - Does not need to call an API to get the rates when starting or restarting
   your web server.
-- Choose how often you want to check for a currency (daily for example).
+- Choose how often you want to update the currency rates (daily for example).
 - Your users do not suffer the cost of making calls to the bank rates API.
 - Your app does not go down when the bank rates API does.
 
@@ -24,7 +24,7 @@ cache when getting the current rate in order to save on database queries.
 ## Usage
 
 Store the current rate regularly by calling in a scheduled job (using something
-like `sidekiq-scheduler`, `whenever` or `active_scheduler`) with the currencies
+like `sidekiq-scheduler`, `whenever`, or `active_scheduler`) with the currencies
 you want to store:
 
 ```rb
