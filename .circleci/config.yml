@@ -26,9 +26,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-rails6.0-dependencies-{{ checksum "Gemfile-rails6.0.lock" }}
+            - v2-rails6.0-dependencies-{{ checksum "Gemfile-rails6.0.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-rails6.0-dependencies-
+            - v2-rails6.0-dependencies-
 
       - run:
           name: Install dependencies
@@ -88,9 +88,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-rails5.2-dependencies-{{ checksum "Gemfile-rails5.2.lock" }}
+            - v2-rails5.2-dependencies-{{ checksum "Gemfile-rails5.2.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-rails5.2-dependencies-
+            - v2-rails5.2-dependencies-
 
       - run:
           name: Install dependencies
@@ -149,9 +149,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-rails4.2-dependencies-{{ checksum "Gemfile-rails4.2.lock" }}
+            - v2-rails4.2-dependencies-{{ checksum "Gemfile-rails4.2.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-rails4.2-dependencies-
+            - v2-rails4.2-dependencies-
 
       - run:
           name: Install dependencies
@@ -210,9 +210,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-rails3.2-dependencies-{{ checksum "Gemfile-rails3.2.lock" }}
+            - v2-rails3.2-dependencies-{{ checksum "Gemfile-rails3.2.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-rails3.2-dependencies-
+            - v2-rails3.2-dependencies-
 
       - run:
           name: Install dependencies
