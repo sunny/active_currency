@@ -2,8 +2,8 @@
 
 module ActiveCurrency
   # Helps support previous version of Rails in migrations.
-  if Rails.version > '4.1'
-    class Migration < ActiveRecord::Migration[4.2]; end
+  if Rails.version > '5.0'
+    class Migration < ActiveRecord::Migration[5.0]; end
   else
     class Migration < ActiveRecord::Migration; end
   end
