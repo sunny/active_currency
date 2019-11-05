@@ -3,6 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
 version: 2
+
 jobs:
   build_rails6.0:
     docker:
@@ -10,7 +11,7 @@ jobs:
         environment:
           BUNDLE_GEMFILE: Gemfile-rails6.0
           RAILS_ENV: test
-          BUNDLER_VERSION: 2.0.1
+          BUNDLER_VERSION: 2.0.2
 
     working_directory: ~/repo
 
@@ -18,9 +19,9 @@ jobs:
       - checkout
 
       - run:
-         name: "Install latest bundler"
+         name: "Install bundler"
          command: |
-           gem install bundler:2.0.2
+           gem install bundler -v "$BUNDLER_VERSION"
 
       # Download and cache dependencies
       - restore_cache:
@@ -72,11 +73,17 @@ jobs:
         environment:
           BUNDLE_GEMFILE: Gemfile-rails4.2
           RAILS_ENV: test
+          BUNDLER_VERSION: 2.0.2
 
     working_directory: ~/repo
 
     steps:
       - checkout
+
+      - run:
+         name: "Install bundler"
+         command: |
+           gem install bundler -v "$BUNDLER_VERSION"
 
       # Download and cache dependencies
       - restore_cache:
@@ -127,11 +134,17 @@ jobs:
         environment:
           BUNDLE_GEMFILE: Gemfile-rails4.2
           RAILS_ENV: test
+          BUNDLER_VERSION: 2.0.2
 
     working_directory: ~/repo
 
     steps:
       - checkout
+
+      - run:
+         name: "Install bundler"
+         command: |
+           gem install bundler -v "$BUNDLER_VERSION"
 
       # Download and cache dependencies
       - restore_cache:
@@ -182,11 +195,17 @@ jobs:
         environment:
           BUNDLE_GEMFILE: Gemfile-rails3.2
           RAILS_ENV: test
+          BUNDLER_VERSION: 2.0.2
 
     working_directory: ~/repo
 
     steps:
       - checkout
+
+      - run:
+         name: "Install bundler"
+         command: |
+           gem install bundler -v "$BUNDLER_VERSION"
 
       # Download and cache dependencies
       - restore_cache:
