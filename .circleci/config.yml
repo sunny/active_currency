@@ -41,8 +41,8 @@ jobs:
           key: v1-rails6.0-dependencies-{{ checksum "Gemfile-rails6.0.lock" }}
 
       # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - run: bin/rake db:create
+      - run: bin/rake db:schema:load
 
       # run tests!
       - run:
@@ -96,8 +96,8 @@ jobs:
           key: v1-rails5.2-dependencies-{{ checksum "Gemfile-rails5.2.lock" }}
 
       # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - run: bin/rake db:create
+      - run: bin/rake db:schema:load
 
       # run tests!
       - run:
@@ -151,8 +151,8 @@ jobs:
           key: v1-rails4.2-dependencies-{{ checksum "Gemfile-rails4.2.lock" }}
 
       # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - run: bin/rake db:create
+      - run: bin/rake db:schema:load
 
       # run tests!
       - run:
@@ -206,8 +206,8 @@ jobs:
           key: v1-rails3.2-dependencies-{{ checksum "Gemfile-rails3.2.lock" }}
 
       # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - run: bin/rake db:create
+      - run: bin/rake db:schema:load
 
       # run tests!
       - run:
