@@ -39,7 +39,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-rails6.0-dependencies-{{ checksum "Gemfile-rails6.0.lock" }}
+          key: v2-rails6.0-dependencies-{{ checksum "Gemfile-rails6.0.lock" }}
 
       # Database setup
       - run: bin/rake db:create
@@ -100,7 +100,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-rails5.2-dependencies-{{ checksum "Gemfile-rails5.2.lock" }}
+          key: v2-rails5.2-dependencies-{{ checksum "Gemfile-rails5.2.lock" }}
 
       # Database setup
       - run: bin/rake db:create
@@ -161,7 +161,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-rails4.2-dependencies-{{ checksum "Gemfile-rails4.2.lock" }}
+          key: v2-rails4.2-dependencies-{{ checksum "Gemfile-rails4.2.lock" }}
 
       # Database setup
       - run: bin/rake db:create
@@ -222,7 +222,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-rails3.2-dependencies-{{ checksum "Gemfile-rails3.2.lock" }}
+          key: v2-rails3.2-dependencies-{{ checksum "Gemfile-rails3.2.lock" }}
 
       # Database setup
       - run: bin/rake db:create
