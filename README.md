@@ -63,7 +63,7 @@ MoneyRails.configure do |config|
 end
 ```
 
-Then call `bundle exec rake db:migrate` to create the table that holds
+Then call `bin/rake db:migrate` to create the table that holds
 the currency rates and fill it for the first time.
 
 ## Tests
@@ -99,7 +99,24 @@ BUNDLE_GEMFILE=Gemfile-rails5.2 bundle install
 Launch specs and linters:
 
 ```sh
-BUNDLE_GEMFILE=Gemfile-rails5.2 bundle exec rake
+BUNDLE_GEMFILE=Gemfile-rails5.2 bin/rake
+```
+
+## Release
+
+Update `CHANGELOG.md`, update version in `lib/active_currency/version.rb`.
+
+Then:
+
+```sh
+BUNDLE_GEMFILE=Gemfile-rails3.2 bundle install
+BUNDLE_GEMFILE=Gemfile-rails4.2 bundle install
+BUNDLE_GEMFILE=Gemfile-rails5.2 bundle install
+BUNDLE_GEMFILE=Gemfile-rails6.0 bundle install
+
+git add CHANGELOG.md lib/active_currency/version.rb Gemfile-rails*.lock
+git commit -m 'New version'
+bin/rake release
 ```
 
 ## License

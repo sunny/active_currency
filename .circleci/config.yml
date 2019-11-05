@@ -3,14 +3,15 @@
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
 version: 2
+
 jobs:
   build_rails6.0:
     docker:
-      - image: circleci/ruby:2.6.0-node
+      - image: circleci/ruby:2.6.5-node
         environment:
           BUNDLE_GEMFILE: Gemfile-rails6.0
           RAILS_ENV: test
-          BUNDLER_VERSION: 2.0.1
+          BUNDLER_VERSION: 2.0.2
 
     working_directory: ~/repo
 
@@ -18,16 +19,17 @@ jobs:
       - checkout
 
       - run:
-         name: "Install latest bundler"
+         name: "Install bundler"
          command: |
-           gem install bundler
+           gem uninstall bundler
+           gem install bundler -v "$BUNDLER_VERSION"
 
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-rails6.0-dependencies-{{ checksum "Gemfile-rails6.0.lock" }}
+            - ruby-2.6.5-rails6.0-dependencies-{{ checksum "Gemfile-rails6.0.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-rails6.0-dependencies-
+            - ruby-2.6.5-rails6.0-dependencies-
 
       - run:
           name: Install dependencies
@@ -38,11 +40,11 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-rails6.0-dependencies-{{ checksum "Gemfile-rails6.0.lock" }}
+          key: ruby-2.6.5-rails6.0-dependencies-{{ checksum "Gemfile-rails6.0.lock" }}
 
       # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - run: bin/rake db:create
+      - run: bin/rake db:schema:load
 
       # run tests!
       - run:
@@ -68,22 +70,28 @@ jobs:
 
   build_rails5.2:
     docker:
-      - image: circleci/ruby:2.4.1-node-browsers
+      - image: circleci/ruby:2.6.5-node
         environment:
           BUNDLE_GEMFILE: Gemfile-rails4.2
           RAILS_ENV: test
+          BUNDLER_VERSION: 2.0.2
 
     working_directory: ~/repo
 
     steps:
       - checkout
 
+      - run:
+         name: "Install bundler"
+         command: |
+           gem install bundler -v "$BUNDLER_VERSION"
+
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-rails5.2-dependencies-{{ checksum "Gemfile-rails5.2.lock" }}
+            - ruby-2.6.5-rails5.2-dependencies-{{ checksum "Gemfile-rails5.2.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-rails5.2-dependencies-
+            - ruby-2.6.5-rails5.2-dependencies-
 
       - run:
           name: Install dependencies
@@ -93,11 +101,11 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-rails5.2-dependencies-{{ checksum "Gemfile-rails5.2.lock" }}
+          key: ruby-2.6.5-rails5.2-dependencies-{{ checksum "Gemfile-rails5.2.lock" }}
 
       # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - run: bin/rake db:create
+      - run: bin/rake db:schema:load
 
       # run tests!
       - run:
@@ -123,22 +131,28 @@ jobs:
 
   build_rails4.2:
     docker:
-      - image: circleci/ruby:2.4.1-node-browsers
+      - image: circleci/ruby:2.6.5-node
         environment:
           BUNDLE_GEMFILE: Gemfile-rails4.2
           RAILS_ENV: test
+          BUNDLER_VERSION: 2.0.2
 
     working_directory: ~/repo
 
     steps:
       - checkout
 
+      - run:
+         name: "Install bundler"
+         command: |
+           gem install bundler -v "$BUNDLER_VERSION"
+
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-rails4.2-dependencies-{{ checksum "Gemfile-rails4.2.lock" }}
+            - ruby-2.6.5-rails4.2-dependencies-{{ checksum "Gemfile-rails4.2.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-rails4.2-dependencies-
+            - ruby-2.6.5-rails4.2-dependencies-
 
       - run:
           name: Install dependencies
@@ -148,11 +162,11 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-rails4.2-dependencies-{{ checksum "Gemfile-rails4.2.lock" }}
+          key: ruby-2.6.5-rails4.2-dependencies-{{ checksum "Gemfile-rails4.2.lock" }}
 
       # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - run: bin/rake db:create
+      - run: bin/rake db:schema:load
 
       # run tests!
       - run:
@@ -178,22 +192,28 @@ jobs:
 
   build_rails3.2:
     docker:
-      - image: circleci/ruby:2.3.7-node-browsers
+      - image: circleci/ruby:2.3.7-node
         environment:
           BUNDLE_GEMFILE: Gemfile-rails3.2
           RAILS_ENV: test
+          BUNDLER_VERSION: 2.0.2
 
     working_directory: ~/repo
 
     steps:
       - checkout
 
+      - run:
+         name: "Install bundler"
+         command: |
+           gem install bundler -v "$BUNDLER_VERSION"
+
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-rails3.2-dependencies-{{ checksum "Gemfile-rails3.2.lock" }}
+            - ruby-2.3.7-rails3.2-dependencies-{{ checksum "Gemfile-rails3.2.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-rails3.2-dependencies-
+            - ruby-2.3.7-rails3.2-dependencies-
 
       - run:
           name: Install dependencies
@@ -203,11 +223,11 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-rails3.2-dependencies-{{ checksum "Gemfile-rails3.2.lock" }}
+          key: ruby-2.6.5-rails3.2-dependencies-{{ checksum "Gemfile-rails3.2.lock" }}
 
       # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - run: bin/rake db:create
+      - run: bin/rake db:schema:load
 
       # run tests!
       - run:

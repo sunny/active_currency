@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+## v1.0.2
+
+Fix:
+- Fix migrations under Rails 4.2.
+
 ## v1.0.1
 
 Fix:
