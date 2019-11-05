@@ -42,6 +42,7 @@ jobs:
           key: v2-rails6.0-dependencies-{{ checksum "Gemfile-rails6.0.lock" }}
 
       # Database setup
+      - run: bundle -v
       - run: bin/rake db:create
       - run: bin/rake db:schema:load
 
