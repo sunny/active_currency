@@ -24,6 +24,7 @@ Replace `bin/bundle` by running `bundle binstubs bundler --force`, then run this
 end
 
 require "rubygems"
+require "bundler"
 require "bundler/setup"
 
 load Gem.bin_path("rake", "rake")
