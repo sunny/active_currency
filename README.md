@@ -102,6 +102,23 @@ Launch specs and linters:
 BUNDLE_GEMFILE=Gemfile-rails5.2 bin/rake
 ```
 
+## Release
+
+Update `CHANGELOG.md`, update version in `lib/active_currency/version.rb`.
+
+Then:
+
+```sh
+BUNDLE_GEMFILE=Gemfile-rails3.2 bundle install
+BUNDLE_GEMFILE=Gemfile-rails4.2 bundle install
+BUNDLE_GEMFILE=Gemfile-rails5.2 bundle install
+BUNDLE_GEMFILE=Gemfile-rails6.0 bundle install
+
+git add CHANGELOG.md lib/active_currency/version.rb Gemfile-rails*.lock
+git commit -m 'New version'
+bin/rake release
+```
+
 ## License
 
 The gem is available as open source under the terms of the
