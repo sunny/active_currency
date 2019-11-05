@@ -21,6 +21,7 @@ jobs:
       - run:
          name: "Install bundler"
          command: |
+           gem uninstall bundler
            gem install bundler -v "$BUNDLER_VERSION"
 
       # Download and cache dependencies
