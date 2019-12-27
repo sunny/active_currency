@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'eu_central_bank', '>= 1.3.1'
 
   # DB for the dummy app.
-  s.add_development_dependency 'sqlite3', '~> 1.3.6'
+  s.add_development_dependency 'sqlite3'
 
   # Unit testing.
   s.add_development_dependency 'rspec-rails'
