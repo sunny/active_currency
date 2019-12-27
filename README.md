@@ -14,12 +14,13 @@ provides the following advantages:
   any given time.
 - Does not need to call an API to get the rates when starting or restarting
   your web server.
+- Does not depend on the file system to store cached rates.
 - Choose how often you want to update the currency rates (daily for example).
 - Your users do not suffer the cost of making calls to the bank rates API.
 - Your app does not go down when the bank rates API does.
 
-To fetch the rates, it uses the [eu_central_bank] gem and uses your application
-cache when getting the current rate in order to save on database queries.
+To fetch the *current* rate it uses your application cache instead of making
+a call to the database.
 
 ## Usage
 
@@ -66,6 +67,23 @@ end
 Then call `bin/rake db:migrate` to create the table that holds
 the currency rates and fill it for the first time.
 
+## Fetching rates
+
+By defaut it uses the [eu_central_bank] to update the currency rates.
+
+If you prefer another API, you can provide any Money-compatible bank when
+calling `ActiveCurrency::AddRates`. For example with the
+[money-open-exchange-rates] gem:
+
+```rb
+require 'money/bank/open_exchange_rates_bank'
+
+bank = Money::Bank::OpenExchangeRatesBank.new(Money::RatesStore::Memory.new)
+bank.app_id = '…'
+
+ActiveCurrency::AddRates.call(%w[EUR USD], bank: bank)
+```
+
 ## Tests
 
 In your app test suite you may not want to have to fill your database to be
@@ -93,13 +111,13 @@ Please file issues and pull requests
 Install:
 
 ```sh
-BUNDLE_GEMFILE=Gemfile-rails5.2 bundle install
+BUNDLE_GEMFILE=Gemfile-rails6.0 bundle install
 ```
 
 Launch specs and linters:
 
 ```sh
-BUNDLE_GEMFILE=Gemfile-rails5.2 bin/rake
+BUNDLE_GEMFILE=Gemfile-rails6.0 bin/rake
 ```
 
 ## Release
@@ -115,7 +133,7 @@ BUNDLE_GEMFILE=Gemfile-rails5.2 bundle install
 BUNDLE_GEMFILE=Gemfile-rails6.0 bundle install
 
 git add CHANGELOG.md lib/active_currency/version.rb Gemfile-rails*.lock
-git commit -m 'New version'
+git commit -m v`ruby -r./lib/active_currency/version <<< 'puts ActiveCurrency::VERSION'`
 bin/rake release
 ```
 
@@ -125,3 +143,4 @@ The gem is available as open source under the terms of the
 [MIT License](http://opensource.org/licenses/MIT).
 
 [eu_central_bank]: https://github.com/RubyMoney/eu_central_bank
+[money-open-exchange-rates]: https://github.com/spk/money-open-exchange-rates
