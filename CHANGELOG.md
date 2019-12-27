@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+## v1.1.0
+
 Feature:
 
 - `ActiveCurrency::AddRates` accepts a custom `bank` argument.
