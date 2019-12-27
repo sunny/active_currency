@@ -69,10 +69,11 @@ the currency rates and fill it for the first time.
 
 ## Fetching rates
 
-By defaut it uses the [eu_central_bank] when updating the currency rates.
-You can give any Money-compatible bank when fetching rates.
+By defaut it uses the [eu_central_bank] to update the currency rates.
 
-For example you can use the [money-open-exchange-rates] gem:
+If you prefer another API, you can provide any Money-compatible bank when
+calling `ActiveCurrency::AddRates`. For example with the
+[money-open-exchange-rates] gem:
 
 ```rb
 require 'money/bank/open_exchange_rates_bank'
@@ -80,7 +81,7 @@ require 'money/bank/open_exchange_rates_bank'
 bank = Money::Bank::OpenExchangeRatesBank.new(Money::RatesStore::Memory.new)
 bank.app_id = '…'
 
-AddRates.call(%w[EUR USD], bank: bank)
+ActiveCurrency::AddRates.call(%w[EUR USD], bank: bank)
 ```
 
 ## Tests
