@@ -2,6 +2,7 @@ AllCops:
   TargetRubyVersion: 2.3
   Exclude:
     - spec/dummy/db/schema.rb
+    - bin/rake
 
 Metrics/BlockLength:
   Exclude:
