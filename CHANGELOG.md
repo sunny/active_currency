@@ -8,6 +8,9 @@ This project adheres to [Semantic Versioning].
 Feature:
 
 - `ActiveCurrency::AddRates` accepts a custom `bank` argument.
+- Use the first currency given to `AddRates` as the default currency instead of
+  EUR.
+- When given a custom bank, use its inverse rates if available.
 
 ## v1.0.2
 

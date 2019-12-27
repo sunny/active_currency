@@ -12,7 +12,7 @@ module ActiveCurrency
       bank.update_rates
 
       other_currencies.each do |to|
-        store_rate(from, to)
+        store_rate(to)
       end
     end
 
@@ -29,26 +29,31 @@ module ActiveCurrency
     end
 
     def other_currencies
-      currencies - [from]
+      currencies.drop(1)
     end
 
     def from
-      'EUR'
+      @from ||= currencies.first
     end
 
     def store
       @store ||= ActiveCurrency::RateStore.new
     end
 
-    def store_rate(from, to)
-      rate = bank.get_rate(from, to)
-
-      if rate.nil? || rate.zero?
-        raise "Bank rate must be set but bank returned #{rate.inpsect}"
-      end
+    def store_rate(to)
+      rate, inverse = get_rates(to)
 
       store.add_rate(from, to, rate)
-      store.add_rate(to, from, 1.fdiv(rate))
+      store.add_rate(to, from, inverse)
+    end
+
+    def get_rates(to)
+      rate = bank.get_rate(from, to)
+      raise "Unknown rate between #{from} and #{to}" if rate.nil? || rate.zero?
+
+      inverse = bank.get_rate(to, from) || 1.fdiv(rate)
+
+      [rate, inverse]
     end
   end
 end
