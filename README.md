@@ -93,13 +93,13 @@ Please file issues and pull requests
 Install:
 
 ```sh
-BUNDLE_GEMFILE=Gemfile-rails5.2 bundle install
+BUNDLE_GEMFILE=Gemfile-rails6.0 bundle install
 ```
 
 Launch specs and linters:
 
 ```sh
-BUNDLE_GEMFILE=Gemfile-rails5.2 bin/rake
+BUNDLE_GEMFILE=Gemfile-rails6.0 bin/rake
 ```
 
 ## Release
@@ -115,7 +115,7 @@ BUNDLE_GEMFILE=Gemfile-rails5.2 bundle install
 BUNDLE_GEMFILE=Gemfile-rails6.0 bundle install
 
 git add CHANGELOG.md lib/active_currency/version.rb Gemfile-rails*.lock
-git commit -m 'New version'
+git commit -m v`ruby -r./lib/active_currency/version <<< 'puts ActiveCurrency::VERSION'`
 bin/rake release
 ```
 
