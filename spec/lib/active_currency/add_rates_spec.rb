@@ -5,14 +5,12 @@ require 'spec_helper'
 RSpec.describe ActiveCurrency::AddRates do
   let(:currencies) { %w[EUR USD CAD] }
 
-  # Mock EuCentralBank
+  # Mock bank
+  let(:bank) { instance_double EuCentralBank, update_rates: nil }
   before do
-    allow_any_instance_of(EuCentralBank)
-      .to receive(:update_rates)
-    allow_any_instance_of(EuCentralBank)
-      .to receive(:get_rate).with('EUR', 'USD') { 1.42 }
-    allow_any_instance_of(EuCentralBank)
-      .to receive(:get_rate).with('EUR', 'CAD') { 1.12 }
+    allow(EuCentralBank).to receive(:new) { bank }
+    allow(bank).to receive(:get_rate).with('EUR', 'USD') { 1.42 }
+    allow(bank).to receive(:get_rate).with('EUR', 'CAD') { 1.12 }
   end
 
   # Mock store
@@ -33,10 +31,17 @@ RSpec.describe ActiveCurrency::AddRates do
     end
   end
 
-  context 'with #call' do
+  describe '#call' do
     subject { described_class.new(currencies).call }
 
     include_examples 'sets the rates'
+
+    context 'with a custom bank' do
+      subject { described_class.new(currencies, bank: bank).call }
+      let(:bank) { double :bank, update_rates: nil }
+
+      include_examples 'sets the rates'
+    end
 
     context 'when given a variety of currency formats' do
       let(:currencies) { ['eur', :USD, Money::Currency.new('CAD')] }
@@ -45,13 +50,14 @@ RSpec.describe ActiveCurrency::AddRates do
     end
   end
 
-  context 'with .call' do
+  describe '.call' do
     subject { described_class.call(currencies) }
 
     include_examples 'sets the rates'
 
-    context 'when given a variety of currency formats' do
-      let(:currencies) { ['eur', :USD, Money::Currency.new('CAD')] }
+    context 'with a custom bank' do
+      subject { described_class.call(currencies, bank: bank) }
+      let(:bank) { double :bank, update_rates: nil }
 
       include_examples 'sets the rates'
     end

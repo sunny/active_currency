@@ -3,21 +3,26 @@
 module ActiveCurrency
   # Store the latest currency rates.
   class AddRates
-    def initialize(currencies)
+    def initialize(currencies, bank: EuCentralBank.new)
       @currencies = currencies
+      @bank = bank
     end
 
     def call
+      bank.update_rates
+
       other_currencies.each do |to|
         store_rate(from, to)
       end
     end
 
-    def self.call(currencies)
-      new(currencies).call
+    def self.call(currencies, *options)
+      new(currencies, *options).call
     end
 
     private
+
+    attr_accessor :bank
 
     def currencies
       @currencies.map(&:to_s).map(&:upcase)
@@ -33,10 +38,6 @@ module ActiveCurrency
 
     def store
       @store ||= ActiveCurrency::RateStore.new
-    end
-
-    def bank
-      @bank ||= EuCentralBank.new.tap(&:update_rates)
     end
 
     def store_rate(from, to)
