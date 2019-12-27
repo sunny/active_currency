@@ -200,7 +200,7 @@ DEPENDENCIES
   rspec-rails
   rspec_junit_formatter
   rubocop
-  sqlite3 (~> 1.4)
+  sqlite3
   timecop
 
 BUNDLED WITH
