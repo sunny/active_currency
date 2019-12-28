@@ -84,6 +84,9 @@ bank.app_id = '…'
 ActiveCurrency::AddRates.call(%w[EUR USD], bank: bank)
 ```
 
+The first currency you give to `AddRates` is considered the default currency
+against which other currency rates will be saved.
+
 ## Tests
 
 In your app test suite you may not want to have to fill your database to be
