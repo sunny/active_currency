@@ -14,6 +14,8 @@ module ActiveCurrency
       other_currencies.each do |to|
         store_rate(to)
       end
+
+      nil
     end
 
     def self.call(currencies, *options)
@@ -41,13 +43,13 @@ module ActiveCurrency
     end
 
     def store_rate(to)
-      rate, inverse = get_rates(to)
+      rate, inverse = get_rate_and_inverse(to)
 
       store.add_rate(from, to, rate)
       store.add_rate(to, from, inverse)
     end
 
-    def get_rates(to)
+    def get_rate_and_inverse(to)
       rate = bank.get_rate(from, to)
       raise "Unknown rate between #{from} and #{to}" if rate.nil? || rate.zero?
 
