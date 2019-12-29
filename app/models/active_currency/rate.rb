@@ -11,10 +11,13 @@ module ActiveCurrency
     }
 
     def self.value_for(from, to, date = nil)
-      scope = date ? before(date) : all_scope
+      from = Money::Currency.new(from)
+      to = Money::Currency.new(to)
+      return 1 if from == to
 
+      scope = date ? before(date) : all_scope
       scope
-        .where(from: from, to: to)
+        .where(from: from.iso_code, to: to.iso_code)
         .order(:created_at)
         .last
         &.value

@@ -5,9 +5,15 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+Features:
+
+- `value_for` accepts any currency format accepted by `Money::Currency`.
+- `value_for` returns `1` if asking for the same `from` and `to`.
+
+
 ## v1.1.0
 
-Feature:
+Features:
 
 - `ActiveCurrency::AddRates` accepts a custom `bank` argument.
 - Use the first currency given to `AddRates` as the default currency instead of

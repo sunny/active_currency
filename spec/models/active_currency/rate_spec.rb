@@ -38,8 +38,18 @@ RSpec.describe ActiveCurrency::Rate do
       expect(described_class.value_for('EUR', 'USD', 1.day.ago)).to eq(1.5)
     end
 
-    it 'returns nil with unexisting currencies' do
+    it 'returns nil with currencies that do not exist yet' do
       expect(described_class.value_for('EUR', 'CAD')).to be_nil
+    end
+
+    it 'returns 1 for the same currency' do
+      expect(described_class.value_for('EUR', 'EUR')).to eq(1)
+      expect(described_class.value_for('USD', 'USD')).to eq(1)
+    end
+
+    it 'accepts different currency formats' do
+      expect(described_class.value_for(:eur, Money::Currency.new('USD')))
+        .to eq(1.42)
     end
   end
 end
