@@ -85,7 +85,7 @@ ActiveCurrency::AddRates.call(%w[EUR USD], bank: bank)
 ```
 
 The first currency you give to `AddRates` is considered the default currency
-against which other currency rates will be saved.
+against which other currency rates will be guessed if they are unavailable.
 
 ## Tests
 

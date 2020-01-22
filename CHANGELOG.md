@@ -7,9 +7,10 @@ This project adheres to [Semantic Versioning].
 
 Features:
 
+- Store all combination of rates between all currencies by defaulting to going
+  through the first currency.
 - `value_for` accepts any currency format accepted by `Money::Currency`.
 - `value_for` returns `1` if asking for the same `from` and `to`.
-
 
 ## v1.1.0
 
