@@ -4,15 +4,15 @@ module ActiveCurrency
   # Store the latest currency rates.
   class AddRates
     def initialize(currencies, bank: EuCentralBank.new)
-      @currencies = currencies
+      @currencies = currencies.map(&:to_s).map(&:upcase)
       @bank = bank
     end
 
     def call
       bank.update_rates
 
-      other_currencies.each do |to|
-        store_rate(to)
+      rates_hash.each do |(from, to), rate|
+        store.add_rate(from, to, rate)
       end
 
       nil
@@ -24,38 +24,40 @@ module ActiveCurrency
 
     private
 
-    attr_accessor :bank
-
-    def currencies
-      @currencies.map(&:to_s).map(&:upcase)
-    end
-
-    def other_currencies
-      currencies.drop(1)
-    end
-
-    def from
-      @from ||= currencies.first
-    end
+    attr_accessor :bank, :currencies
 
     def store
       @store ||= ActiveCurrency::RateStore.new
     end
 
-    def store_rate(to)
-      rate, inverse = get_rate_and_inverse(to)
+    def rates_hash
+      currencies.each_with_object({}) do |from, hash|
+        currencies.each do |to|
+          next if from == to
 
-      store.add_rate(from, to, rate)
-      store.add_rate(to, from, inverse)
+          hash[[from, to]] = get_rate(hash, from, to)
+        end
+      end
     end
 
-    def get_rate_and_inverse(to)
+    def get_rate(hash, from, to)
       rate = bank.get_rate(from, to)
-      raise "Unknown rate between #{from} and #{to}" if rate.nil? || rate.zero?
+      return rate if rate
 
-      inverse = bank.get_rate(to, from) || 1.fdiv(rate)
+      # Inverse rate (not so good)
+      inverse = hash[[to, from]]
+      return 1.fdiv(inverse) if inverse
 
-      [rate, inverse]
+      # Rate going through the first currency (desperate)
+      from_main = hash[[from, main_currency]]
+      to_main = hash[[main_currency, to]]
+      return from_main * to_main if from_main && to_main
+
+      raise "Unknown rate between #{from} and #{to}"
+    end
+
+    def main_currency
+      currencies.first
     end
   end
 end
