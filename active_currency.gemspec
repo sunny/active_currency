@@ -46,4 +46,7 @@ Gem::Specification.new do |s|
 
   # Style guide.
   s.add_development_dependency 'rubocop'
+
+  # Style guide for Rails.
+  s.add_development_dependency 'rubocop-rails'
 end

@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+## v1.2.0
+
 Features:
 
 - Store all combination of rates between all currencies by defaulting to going
