@@ -33,6 +33,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sqlite3'
 
   # Unit testing.
+  s.add_development_dependency 'rspec'
+
+  # Unit testing with rails.
   s.add_development_dependency 'rspec-rails'
 
   # Formatter for unit testing that Circle-CI enjoys.

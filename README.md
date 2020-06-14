@@ -138,10 +138,10 @@ gem install bundler:2.1.2
 BUNDLE_GEMFILE=Gemfile-rails5.2 bundle update
 BUNDLE_GEMFILE=Gemfile-rails6.0 bundle update
 
-BUNDLE_GEMFILE=Gemfile-rails3.2 bundle exec rake
-BUNDLE_GEMFILE=Gemfile-rails4.2 bundle exec rake
-BUNDLE_GEMFILE=Gemfile-rails5.2 bundle exec rake
-BUNDLE_GEMFILE=Gemfile-rails6.0 bundle exec rake
+BUNDLE_GEMFILE=Gemfile-rails3.2 bin/rake
+BUNDLE_GEMFILE=Gemfile-rails4.2 bin/rake
+BUNDLE_GEMFILE=Gemfile-rails5.2 bin/rake
+BUNDLE_GEMFILE=Gemfile-rails6.0 bin/rake
 
 git add CHANGELOG.md lib/active_currency/version.rb Gemfile-rails*.lock
 git commit -m v`ruby -r./lib/active_currency/version <<< 'puts ActiveCurrency::VERSION'`
