@@ -5,18 +5,13 @@ module ActiveCurrency
     isolate_namespace ActiveCurrency
 
     initializer :append_migrations do |app|
-      app_context = app.root.to_s
-      engine_context = root.to_s
+      next if app.root.to_s.match(root.to_s)
 
-      return if app_context.match engine_context
-
-      migrations_path = ActiveRecord::Migrator.migrations_paths
-
-      config.paths['db/migrate'].expanded.each do |expanded_path|
-        migrations_path << expanded_path
+      paths = ActiveRecord::Migrator.migrations_paths
+      config.paths['db/migrate'].expanded.each do |path|
+        paths << path
       end
-
-      migrations_path.uniq!
+      paths.uniq!
     end
   end
 end
