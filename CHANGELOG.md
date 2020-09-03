@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+## v1.2.1
+
 Fixed:
 
 - Fix migrations export to host application
