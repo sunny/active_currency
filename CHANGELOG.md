@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+Fixed:
+
+- Fix migrations export to host application
+
 ## v1.2.0
 
 Features:
