@@ -188,7 +188,7 @@ jobs:
 
   build_rails3.2:
     docker:
-      - image: circleci/ruby:2.3.7-node
+      - image: circleci/ruby:2.4.0-node
         environment:
           BUNDLE_GEMFILE: Gemfile-rails3.2
           RAILS_ENV: test
@@ -205,9 +205,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - ruby-2.3.7-rails3.2-dependencies-{{ checksum "Gemfile-rails3.2.lock" }}
+            - ruby-2.4.0-rails3.2-dependencies-{{ checksum "Gemfile-rails3.2.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - ruby-2.3.7-rails3.2-dependencies-
+            - ruby-2.4.0-rails3.2-dependencies-
 
       - run:
           name: Install dependencies
