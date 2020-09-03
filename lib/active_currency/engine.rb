@@ -5,13 +5,18 @@ module ActiveCurrency
     isolate_namespace ActiveCurrency
 
     initializer :append_migrations do |app|
-      # This prevents migrations from being loaded twice from the inside of the
-      # gem itself (dummy test app)
-      if app.root.to_s !~ /#{root}/
-        config.paths['db/migrate'].expanded.each do |migration_path|
-          app.config.paths['db/migrate'] << migration_path
-        end
+      app_context = app.root.to_s
+      engine_context = root.to_s
+
+      return if app_context.match engine_context
+
+      migrations_path = ActiveRecord::Migrator.migrations_paths
+
+      config.paths['db/migrate'].expanded.each do |expanded_path|
+        migrations_path << expanded_path
       end
+
+      migrations_path.uniq!
     end
   end
 end
