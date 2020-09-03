@@ -201,7 +201,7 @@ jobs:
       - run:
          name: "Install bundler"
          command: |
-           gem uninstall bundler
+           gem uninstall -i /usr/local/lib/ruby/gems/2.3.0 bundler
            gem install bundler -v 1.17.2
 
       # Download and cache dependencies
