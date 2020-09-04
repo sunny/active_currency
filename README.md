@@ -131,7 +131,6 @@ Then:
 
 ```sh
 gem install bundler:1.17.2
-BUNDLE_GEMFILE=Gemfile-rails3.2 bundle update
 BUNDLE_GEMFILE=Gemfile-rails4.2 bundle update
 BUNDLE_GEMFILE=Gemfile-rails5.2 bundle update
 

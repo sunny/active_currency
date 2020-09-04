@@ -32,10 +32,6 @@ Dummy::Application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
-  if ENV['BUNDLE_GEMFILE'] == 'Gemfile-rails3.2'
-    config.action_mailer.perform_caching = false
-  end
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
