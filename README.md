@@ -130,8 +130,7 @@ Update `CHANGELOG.md`, update version in `lib/active_currency/version.rb`.
 Then:
 
 ```sh
-gem install bundler:1.3.0
-BUNDLE_GEMFILE=Gemfile-rails3.2 bundle update
+gem install bundler:1.17.2
 BUNDLE_GEMFILE=Gemfile-rails4.2 bundle update
 BUNDLE_GEMFILE=Gemfile-rails5.2 bundle update
 
