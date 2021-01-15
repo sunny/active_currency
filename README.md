@@ -25,8 +25,10 @@ a call to the database.
 ## Usage
 
 Store the current rate regularly by calling in a scheduled job (using something
-like `sidekiq-scheduler`, `whenever`, or `active_scheduler`) with the currencies
-you want to store:
+like [sidekiq-scheduler](https://github.com/Moove-it/sidekiq-scheduler),
+[whenever](https://github.com/javan/whenever),
+or [active_scheduler](https://github.com/JustinAiken/active_scheduler))
+with the currencies you want to store:
 
 ```rb
 ActiveCurrency::AddRates.call(%w[EUR USD])
