@@ -11,8 +11,15 @@ class CreateActiveCurrencyRates < ActiveCurrency::Migration
       t.datetime :created_at
     end
 
-    add_index :active_currency_rates,
-              %i[from to created_at],
-              name: 'index_active_currency_rates'
+    reversible do |dir|
+      dir.up do
+        add_index :active_currency_rates,
+                  %i[from to created_at],
+                  name: 'index_active_currency_rates'
+      end
+      dir.down do
+        remove_index :active_currency_rates, 'index_active_currency_rates'
+      end
+    end
   end
 end
