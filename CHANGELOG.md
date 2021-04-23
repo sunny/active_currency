@@ -5,8 +5,14 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
-Breaking change:
+## v1.3.0
+
+Changes:
 - Drop support for Rails < 4.2.
+
+Fixed:
+- Reversible migration.
+- Migration injects through database tasks.
 
 ## v1.2.1
 
