@@ -9,3 +9,6 @@ spec/dummy/tmp/
 # Do not track the Gemfile.lock since this is a gem that does not block
 # specific versions to users of the gem.
 Gemfile.lock
+
+# RSpec file to track last runs.
+tmp/rspec_examples.txt

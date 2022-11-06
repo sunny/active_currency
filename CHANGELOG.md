@@ -10,6 +10,7 @@ Changes:
 - Drop support for Rails < 6.1.
 - Database transaction when saving rates.
 - Add named argument for the list of currencies.
+- Add multiplier option.
 
 Fix:
 - A nil bank defaults to EuCentralBank.

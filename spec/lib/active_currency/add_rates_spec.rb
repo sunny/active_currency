@@ -20,7 +20,7 @@ RSpec.describe ActiveCurrency::AddRates do
     end
 
     it 'updates the rates' do
-      subject
+      add_rate
 
       expect(bank).to have_received(:update_rates)
     end
@@ -40,7 +40,7 @@ RSpec.describe ActiveCurrency::AddRates do
     end
 
     it 'updates the rates' do
-      subject
+      add_rate
 
       expect(bank).to have_received(:update_rates)
     end
@@ -54,7 +54,7 @@ RSpec.describe ActiveCurrency::AddRates do
     end
 
     it 'calls add_rate with the correct arguments' do
-      subject
+      add_rate
 
       expect(store).to have_received(:add_rate).exactly(6).times
       expect(store).to have_received(:add_rate).with('EUR', 'USD', 1.42)
@@ -70,39 +70,18 @@ RSpec.describe ActiveCurrency::AddRates do
     end
   end
 
-  describe '#call' do
-    subject { described_class.new(currencies).call }
-
-    context 'when called' do
-      include_examples 'with a mocked EuCentralBank'
-      include_examples 'sets the rates'
-    end
-
-    context 'when given a variety of currency formats' do
-      let(:currencies) { ['eur', :USD, Money::Currency.new('CAD')] }
-
-      include_examples 'with a mocked EuCentralBank'
-      include_examples 'sets the rates'
-    end
-
-    context 'when given a custom bank' do
-      subject { described_class.new(currencies, bank: bank).call }
-
-      include_examples 'with a custom bank'
-      include_examples 'sets the rates'
-    end
-  end
-
   describe '.call' do
-    subject { described_class.call(currencies) }
+    let(:add_rate) { described_class.call(currencies: currencies) }
 
-    context 'when called' do
+    context 'with the default bank' do
       include_examples 'with a mocked EuCentralBank'
       include_examples 'sets the rates'
     end
 
     context 'when given a custom bank' do
-      subject { described_class.new(currencies, bank: bank).call }
+      let(:add_rate) do
+        described_class.call(currencies: currencies, bank: bank)
+      end
 
       include_examples 'with a custom bank'
       include_examples 'sets the rates'
@@ -113,6 +92,64 @@ RSpec.describe ActiveCurrency::AddRates do
 
       include_examples 'with a mocked EuCentralBank'
       include_examples 'sets the rates'
+    end
+
+    context 'with the deprecated array first currency' do
+      let(:add_rate) { described_class.call(currencies) }
+
+      context 'with the default bank' do
+        include_examples 'with a mocked EuCentralBank'
+        include_examples 'sets the rates'
+      end
+
+      context 'when given a custom bank' do
+        let(:add_rate) do
+          described_class.call(currencies, bank: bank)
+        end
+
+        include_examples 'with a custom bank'
+        include_examples 'sets the rates'
+      end
+    end
+
+    context 'with a custom multiplier' do
+      # Mock store
+      let(:store) { instance_double ActiveCurrency::RateStore, add_rate: nil }
+
+      before do
+        allow(ActiveCurrency.configuration)
+          .to receive(:multiplier)
+          .and_return(1.1)
+
+        allow(ActiveCurrency::RateStore).to receive(:new) { store }
+      end
+
+      include_examples 'with a mocked EuCentralBank'
+
+      it 'calls add_rate with increased values' do
+        add_rate
+
+        expect(store).to have_received(:add_rate).exactly(6).times
+
+        expect(store)
+          .to have_received(:add_rate)
+          .with('EUR', 'USD', 1.42 * 1.1)
+        expect(store)
+          .to have_received(:add_rate)
+          .with('USD', 'EUR', (1 / 1.42) * 1.1)
+        expect(store)
+          .to have_received(:add_rate)
+          .with('EUR', 'CAD', 1.12 * 1.1)
+        expect(store)
+          .to have_received(:add_rate)
+          .with('CAD', 'EUR', (1 / 1.12) * 1.1)
+        expect(store)
+          .to have_received(:add_rate)
+          .with('CAD', 'USD', a_value_within(0.0000001).of((1.42 / 1.12) * 1.1))
+        expect(store)
+          .to have_received(:add_rate)
+          .with('USD', 'CAD', a_value_within(0.0000001).of((1.12 / 1.42) * 1.1))
+      end
     end
   end
 end
