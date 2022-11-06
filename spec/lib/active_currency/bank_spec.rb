@@ -3,10 +3,10 @@
 require 'spec_helper'
 
 RSpec.describe ActiveCurrency::Bank do
-  subject { described_class.new }
+  let(:bank) { described_class.new }
 
-  it 'creates a bank' do
-    expect(subject).to be_kind_of(Money::Bank::VariableExchange)
-    expect(subject.store).to be_kind_of(ActiveCurrency::RateStore)
+  it 'is a bank' do
+    expect(bank).to be_a(Money::Bank::VariableExchange)
+    expect(bank.store).to be_a(ActiveCurrency::RateStore)
   end
 end

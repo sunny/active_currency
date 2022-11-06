@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe ActiveCurrency::Rate do
-  before { ActiveCurrency::Rate.delete_all }
+  before { described_class.delete_all }
 
   around { |example| Timecop.freeze(now, &example) }
 
@@ -13,7 +13,7 @@ RSpec.describe ActiveCurrency::Rate do
 
   describe '.value_for' do
     let!(:latest_rate) do
-      ActiveCurrency::Rate.create!(
+      described_class.create!(
         from: 'EUR',
         to: 'USD',
         value: 1.42,
@@ -22,7 +22,7 @@ RSpec.describe ActiveCurrency::Rate do
     end
 
     let!(:oldest_rate) do
-      ActiveCurrency::Rate.create!(
+      described_class.create!(
         from: 'EUR',
         to: 'USD',
         value: 1.5,

@@ -10,12 +10,12 @@ RSpec.describe ActiveCurrency::AddRates do
     let(:bank) { instance_double EuCentralBank, update_rates: nil }
     before do
       allow(EuCentralBank).to receive(:new) { bank }
-      allow(bank).to receive(:get_rate).with('EUR', 'USD') { 1.42 }
-      allow(bank).to receive(:get_rate).with('USD', 'EUR') { nil }
-      allow(bank).to receive(:get_rate).with('EUR', 'CAD') { 1.12 }
-      allow(bank).to receive(:get_rate).with('CAD', 'EUR') { nil }
-      allow(bank).to receive(:get_rate).with('CAD', 'USD') { nil }
-      allow(bank).to receive(:get_rate).with('USD', 'CAD') { nil }
+      allow(bank).to receive(:get_rate).with('EUR', 'USD').and_return(1.42)
+      allow(bank).to receive(:get_rate).with('USD', 'EUR').and_return(nil)
+      allow(bank).to receive(:get_rate).with('EUR', 'CAD').and_return(1.12)
+      allow(bank).to receive(:get_rate).with('CAD', 'EUR').and_return(nil)
+      allow(bank).to receive(:get_rate).with('CAD', 'USD').and_return(nil)
+      allow(bank).to receive(:get_rate).with('USD', 'CAD').and_return(nil)
     end
 
     it 'updates the rates' do
@@ -30,12 +30,12 @@ RSpec.describe ActiveCurrency::AddRates do
     let(:bank) { double :bank, update_rates: nil }
 
     before do
-      allow(bank).to receive(:get_rate).with('EUR', 'USD') { 1.42 }
+      allow(bank).to receive(:get_rate).with('EUR', 'USD').and_return(1.42)
       allow(bank).to receive(:get_rate).with('USD', 'EUR') { 1 / 1.42 }
-      allow(bank).to receive(:get_rate).with('EUR', 'CAD') { 1.12 }
+      allow(bank).to receive(:get_rate).with('EUR', 'CAD').and_return(1.12)
       allow(bank).to receive(:get_rate).with('CAD', 'EUR') { 1 / 1.12 }
-      allow(bank).to receive(:get_rate).with('CAD', 'USD') { nil }
-      allow(bank).to receive(:get_rate).with('USD', 'CAD') { nil }
+      allow(bank).to receive(:get_rate).with('CAD', 'USD').and_return(nil)
+      allow(bank).to receive(:get_rate).with('USD', 'CAD').and_return(nil)
     end
 
     it 'updates the rates' do

@@ -1,11 +1,16 @@
 require:
   - rubocop-rails
+  - rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.0
+  NewCops: enable
   Exclude:
     - spec/dummy/db/schema.rb
     - bin/rake
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
 
 Metrics/BlockLength:
   Exclude:
@@ -25,6 +30,21 @@ Rails/FilePath:
   EnforcedStyle: slashes
 
 Rails/ApplicationRecord:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Max: 20
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 5
+
+RSpec/VerifiedDoubles:
   Enabled: false
 
 Style/Lambda:
