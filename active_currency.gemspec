@@ -30,6 +30,9 @@ Gem::Specification.new do |s|
   # >= 1.3.1 to prevent HTTPS error.
   s.add_dependency 'eu_central_bank', '>= 1.3.1'
 
+  # Handle database transactions.
+  s.add_dependency 'after_commit_everywhere', '>= 1.3.0'
+
   # DB for the dummy app.
   s.add_development_dependency 'sqlite3'
 
