@@ -9,3 +9,7 @@ ActiveRecord::Migrator.migrations_paths =
   [File.expand_path('../spec/dummy/db/migrate', __dir__)]
 ActiveRecord::Migrator.migrations_paths <<
   File.expand_path('../db/migrate', __dir__)
+
+RSpec.configure do |config|
+  config.example_status_persistence_file_path = 'tmp/rspec_examples.txt'
+end

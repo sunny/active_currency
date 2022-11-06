@@ -16,4 +16,10 @@ RSpec.describe ActiveCurrency::Configuration do
     configuration.open_exchange_rates_app_id = '123'
     expect(configuration.open_exchange_rates_app_id).to eq('123')
   end
+
+  it 'accepts a multiplier' do
+    expect(configuration.multiplier).to eq(1)
+    configuration.multiplier = 2
+    expect(configuration.multiplier).to eq(2)
+  end
 end

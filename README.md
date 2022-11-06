@@ -80,7 +80,7 @@ against which other currency rates will be guessed if they are unavailable.
 
 By defaut it uses the [eu_central_bank] to fill the currency rates.
 
-### Fetching from open-exchange-rates
+### Fetching from openexchangerates.org
 
 To use the [money-open-exchange-rates] gem, add the gem to your `Gemfile`, then
 add the following to your application’s initializers:
@@ -101,6 +101,17 @@ You can provide any Money-compatible bank when calling
 ActiveCurrency::AddRates.call(…, bank: …)
 ```
 
+## Apply a multiplier
+
+If you want to increase or decrease the currency rates by a given multiplier,
+you can do so by setting the `multiplier` option:
+
+```rb
+ActiveCurrency.configure do |config|
+  config.multiplier = 1.01
+end
+```
+
 ## Tests
 
 In your app test suite you may not want to have to fill your database to be
@@ -112,7 +123,7 @@ For that, you can use a fake rate store in your `rails_helper.rb`:
 MoneyRails.configure do |config|
   rate_store = Money::RatesStore::Memory.new.tap do |store|
     store.add_rate('USD', 'EUR', 1.5)
-    store.add_rate('EUR', 'USD', 1.4)
+    store.add_rate('EUR', 'USD', 0.67)
   end
   config.default_bank = Money::Bank::VariableExchange.new(rate_store)
 end
@@ -120,8 +131,7 @@ end
 
 ## Contributing
 
-Please file issues and pull requests
-[on GitHub](https://github.com/sunny/active_currency).
+Please file issues and pull requests [on GitHub].
 
 ## Development
 
@@ -154,8 +164,7 @@ bin/rake release
 
 ## License
 
-The gem is available as open source under the terms of the
-[MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT License].
 
 [money-rails]: https://github.com/RubyMoney/money-rails
 [sidekiq-scheduler]: https://github.com/Moove-it/sidekiq-scheduler
@@ -163,3 +172,5 @@ The gem is available as open source under the terms of the
 [active_scheduler]: https://github.com/JustinAiken/active_scheduler
 [eu_central_bank]: https://github.com/RubyMoney/eu_central_bank
 [money-open-exchange-rates]: https://github.com/spk/money-open-exchange-rates
+[on GitHub]: https://github.com/sunny/active_currency
+[MIT License]: http://opensource.org/licenses/MIT

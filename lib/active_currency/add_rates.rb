@@ -5,33 +5,37 @@ module ActiveCurrency
   class AddRates
     include AfterCommitEverywhere
 
-    def initialize(deprecated_currencies = nil, currencies: nil, bank: nil)
-      @currencies =
-        (currencies || deprecated_currencies).map(&:to_s).map(&:upcase)
-      if @currencies.size < 2
+    def self.call(deprecated_currencies = nil, currencies: nil, bank: nil)
+      currencies ||= deprecated_currencies
+      bank ||= ActiveCurrency.remote_bank
+
+      new(currencies: currencies, bank: bank).send(:call)
+    end
+
+    private
+
+    def initialize(currencies:, bank:)
+      if currencies.size < 2
         raise ArgumentError, 'At least two currencies are required'
       end
 
-      @bank = bank || ActiveCurrency.remote_bank
+      @currencies = currencies.map(&:to_s).map(&:upcase)
+      @bank = bank
     end
+
+    private_class_method :new
 
     def call
       bank.update_rates
 
       in_transaction do
         rates_hash.each do |(from, to), rate|
-          store.add_rate(from, to, rate)
+          store.add_rate(from, to, multiply_rate(rate))
         end
       end
 
       nil
     end
-
-    def self.call(currencies, *options)
-      new(currencies, *options).call
-    end
-
-    private
 
     attr_accessor :bank, :currencies
 
@@ -63,6 +67,10 @@ module ActiveCurrency
       return from_main * to_main if from_main && to_main
 
       raise "Unknown rate between #{from} and #{to}"
+    end
+
+    def multiply_rate(rate)
+      ActiveCurrency.configuration.multiplier * rate
     end
 
     def main_currency
