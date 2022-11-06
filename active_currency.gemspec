@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.summary = 'Rails plugin to store your currency regularly'
   s.description = 'Store your currency.'
   s.license = 'MIT'
+  s.metadata['rubygems_mfa_required'] = 'true'
 
   s.files =
     Dir['{app,db,lib}/**/*', 'MIT-LICENSE', 'README.md']
@@ -38,6 +39,9 @@ Gem::Specification.new do |s|
   # Unit testing with rails.
   s.add_development_dependency 'rspec-rails'
 
+  # Spec formatter for GitHub Actions.
+  s.add_development_dependency 'rspec-github'
+
   # Formatter for unit testing that Circle-CI enjoys.
   s.add_development_dependency 'rspec_junit_formatter'
 
@@ -52,4 +56,7 @@ Gem::Specification.new do |s|
 
   # Style guide for Rails.
   s.add_development_dependency 'rubocop-rails'
+
+  # Style guide for RSpec.
+  s.add_development_dependency 'rubocop-rspec'
 end

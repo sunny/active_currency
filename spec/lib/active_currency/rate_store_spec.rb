@@ -3,17 +3,15 @@
 require 'spec_helper'
 
 RSpec.describe ActiveCurrency::RateStore do
-  subject { described_class.new }
+  let(:store) { described_class.new }
 
-  # Mock cache
   before do
+    # Mock cache
     allow(Rails.cache).to receive(:fetch).and_yield
     allow(Rails.cache).to receive(:delete)
-  end
 
-  # Mock database
-  before do
-    allow(ActiveCurrency::Rate).to receive(:value_for) { 1.5 }
+    # Mock database
+    allow(ActiveCurrency::Rate).to receive(:value_for).and_return(1.5)
   end
 
   # Mock time
@@ -23,7 +21,7 @@ RSpec.describe ActiveCurrency::RateStore do
 
   describe '#get_rate' do
     context 'without a date' do
-      let(:get_rate) { subject.get_rate('EUR', 'USD') }
+      let(:get_rate) { store.get_rate('EUR', 'USD') }
 
       it 'calls the database' do
         expect(get_rate).to eq(1.5)
@@ -40,7 +38,7 @@ RSpec.describe ActiveCurrency::RateStore do
 
       context 'with a full cache' do
         before do
-          allow(Rails.cache).to receive(:fetch) { 99.99 }
+          allow(Rails.cache).to receive(:fetch).and_return(99.99)
         end
 
         it 'returns the cached value' do
@@ -59,13 +57,13 @@ RSpec.describe ActiveCurrency::RateStore do
       let(:date) { 1.day.ago }
 
       it 'calls the database' do
-        expect(subject.get_rate('EUR', 'USD', date)).to eq(1.5)
+        expect(store.get_rate('EUR', 'USD', date)).to eq(1.5)
         expect(ActiveCurrency::Rate)
           .to have_received(:value_for).with('EUR', 'USD', date)
       end
 
       it 'does not call the cache' do
-        subject.get_rate('EUR', 'USD', date)
+        store.get_rate('EUR', 'USD', date)
 
         expect(Rails.cache).not_to have_received(:fetch)
       end
@@ -74,8 +72,8 @@ RSpec.describe ActiveCurrency::RateStore do
 
   describe '#add_rate' do
     it 'creates a rate in the database' do
-      expect { subject.add_rate('EUR', 'USD', 1.5) }
-        .to change { ActiveCurrency::Rate.count }.by(1)
+      expect { store.add_rate('EUR', 'USD', 1.5) }
+        .to change(ActiveCurrency::Rate, :count).by(1)
 
       rate = ActiveCurrency::Rate.last
       expect(rate.from).to eq('EUR')
@@ -85,7 +83,7 @@ RSpec.describe ActiveCurrency::RateStore do
     end
 
     it 'deletes the cache key' do
-      subject.add_rate('EUR', 'USD', 1.5)
+      store.add_rate('EUR', 'USD', 1.5)
 
       expect(Rails.cache)
         .to have_received('delete').with(%w[active_currency_rate EUR USD])
@@ -95,7 +93,7 @@ RSpec.describe ActiveCurrency::RateStore do
       let(:date) { 1.day.ago }
 
       it 'assigns it to the currency_rate' do
-        subject.add_rate('EUR', 'USD', 1.5, date)
+        store.add_rate('EUR', 'USD', 1.5, date)
 
         rate = ActiveCurrency::Rate.last
         expect(rate.created_at).to eq(date)
