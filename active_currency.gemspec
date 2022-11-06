@@ -20,18 +20,25 @@ Gem::Specification.new do |s|
   s.files =
     Dir['{app,db,lib}/**/*', 'MIT-LICENSE', 'README.md']
 
+  # Gem dependencies
+
   # Rails plugin.
   s.add_dependency 'rails', '>= 4.2'
 
   # The Rails app needs to use money-rails as well.
   s.add_dependency 'money-rails'
 
+  # Handle database transactions.
+  s.add_dependency 'after_commit_everywhere', '>= 1.3.0'
+
   # API to get the currencies.
   # >= 1.3.1 to prevent HTTPS error.
   s.add_dependency 'eu_central_bank', '>= 1.3.1'
 
-  # Handle database transactions.
-  s.add_dependency 'after_commit_everywhere', '>= 1.3.0'
+  # Development dependencies
+
+  # API to get the currencies.
+  s.add_development_dependency 'money-open-exchange-rates'
 
   # DB for the dummy app.
   s.add_development_dependency 'sqlite3'

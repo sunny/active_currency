@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+require 'eu_central_bank'
 
 RSpec.describe ActiveCurrency::AddRates do
   let(:currencies) { %w[EUR USD CAD] }

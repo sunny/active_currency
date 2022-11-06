@@ -6,11 +6,13 @@ This project adheres to [Semantic Versioning].
 ## Unreleased
 
 Changes:
+- Support the money-open-exchange-rates gem.
 - Drop support for Rails < 6.1.
 - Database transaction when saving rates.
 
 Fix:
 - A nil bank defaults to EuCentralBank.
+- Do not require the `eu_central_bank` when using a different bank.
 
 ## v1.3.0
 
