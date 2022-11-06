@@ -2,6 +2,7 @@
 
 require 'money-rails'
 require 'eu_central_bank'
+require 'after_commit_everywhere'
 
 require 'active_currency/engine'
 require 'active_currency/database_store'

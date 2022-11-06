@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning].
 
 Changes:
 - Drop support for Rails < 6.1.
+- Database transaction when saving rates.
 
 Fix:
 - A nil bank defaults to EuCentralBank.

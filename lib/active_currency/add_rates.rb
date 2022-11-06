@@ -3,6 +3,8 @@
 module ActiveCurrency
   # Store the latest currency rates.
   class AddRates
+    include AfterCommitEverywhere
+
     def initialize(currencies, bank: nil)
       @currencies = currencies.map(&:to_s).map(&:upcase)
       @bank = bank || EuCentralBank.new
@@ -11,8 +13,10 @@ module ActiveCurrency
     def call
       bank.update_rates
 
-      rates_hash.each do |(from, to), rate|
-        store.add_rate(from, to, rate)
+      in_transaction do
+        rates_hash.each do |(from, to), rate|
+          store.add_rate(from, to, rate)
+        end
       end
 
       nil
