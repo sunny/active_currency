@@ -7,7 +7,7 @@ module ActiveCurrency
 
     def initialize(currencies, bank: nil)
       @currencies = currencies.map(&:to_s).map(&:upcase)
-      @bank = bank || EuCentralBank.new
+      @bank = bank || ActiveCurrency.remote_bank
     end
 
     def call

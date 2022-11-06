@@ -1,12 +1,12 @@
 # ActiveCurrency
 
 Rails plugin to retrieve and store the currency rates daily to integrate
-with the `money-rails` gem.
+with the [money-rails] gem.
 
 ## Rationale
 
-Storing the current currency rates in the database using ActiveCurrency
-provides the following advantages:
+Storing the current currency rates with ActiveCurrency provides the following
+advantages:
 
 - Lets you query for the currency rate you actually used in your application at
   any given time.
@@ -23,10 +23,8 @@ a call to the database.
 ## Usage
 
 Store the current rate regularly by calling in a scheduled job (using something
-like [sidekiq-scheduler](https://github.com/Moove-it/sidekiq-scheduler),
-[whenever](https://github.com/javan/whenever),
-or [active_scheduler](https://github.com/JustinAiken/active_scheduler))
-with the currencies you want to store:
+like [sidekiq-scheduler], [whenever], or [active_scheduler]) with the currencies
+you want to store:
 
 ```rb
 ActiveCurrency::AddRates.call(%w[EUR USD])
@@ -49,7 +47,7 @@ ActiveCurrency::Rate.where(from: 'EUR', to: 'USD').pluck(:value)
 
 ## Installation
 
-Add these lines to your application's `Gemfile`:
+Add these lines to your application’s `Gemfile`:
 
 ```rb
 # Store and retrieve the currency from the database.
@@ -69,23 +67,39 @@ the currency rates and fill it for the first time.
 
 ## Fetching rates
 
-By defaut it uses the [eu_central_bank] to update the currency rates.
-
-If you prefer another API, you can provide any Money-compatible bank when
-calling `ActiveCurrency::AddRates`. For example with the
-[money-open-exchange-rates] gem:
+Call the following regularly in a scheduled job:
 
 ```rb
-require 'money/bank/open_exchange_rates_bank'
-
-bank = Money::Bank::OpenExchangeRatesBank.new(Money::RatesStore::Memory.new)
-bank.app_id = '…'
-
-ActiveCurrency::AddRates.call(%w[EUR USD], bank: bank)
+ActiveCurrency::AddRates.call(%w[EUR USD])
 ```
 
 The first currency you give to `AddRates` is considered the default currency
 against which other currency rates will be guessed if they are unavailable.
+
+### Fetching from the European Central Bank
+
+By defaut it uses the [eu_central_bank] to fill the currency rates.
+
+### Fetching from open-exchange-rates
+
+To use the [money-open-exchange-rates] gem, add the gem to your `Gemfile`, then
+add the following to your application’s initializers:
+
+```rb
+ActiveCurrency.configure do |config|
+  config.remote_bank = :open_exchange_rates
+  config.open_exchange_rates_app_id = '…'
+end
+```
+
+### Fetching from a custom bank
+
+You can provide any Money-compatible bank when calling
+`ActiveCurrency::AddRates`:
+
+```rb
+ActiveCurrency::AddRates.call(%w[EUR USD], bank: …)
+```
 
 ## Tests
 
@@ -143,5 +157,9 @@ bin/rake release
 The gem is available as open source under the terms of the
 [MIT License](http://opensource.org/licenses/MIT).
 
+[money-rails]: https://github.com/RubyMoney/money-rails
+[sidekiq-scheduler]: https://github.com/Moove-it/sidekiq-scheduler
+[whenever]: https://github.com/javan/whenever
+[active_scheduler]: https://github.com/JustinAiken/active_scheduler
 [eu_central_bank]: https://github.com/RubyMoney/eu_central_bank
 [money-open-exchange-rates]: https://github.com/spk/money-open-exchange-rates
