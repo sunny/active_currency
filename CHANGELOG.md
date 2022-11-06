@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+Fixed:
+- A nil bank defaults to EuCentralBank.
+
 ## v1.3.0
 
 Changes:
