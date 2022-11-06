@@ -1,7 +1,5 @@
 # ActiveCurrency
 
-[![CircleCI](https://circleci.com/gh/sunny/active_currency.svg?style=svg)](https://circleci.com/gh/sunny/active_currency)
-
 Rails plugin to retrieve and store the currency rates daily to integrate
 with the `money-rails` gem.
 
