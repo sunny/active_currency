@@ -27,7 +27,7 @@ like [sidekiq-scheduler], [whenever], or [active_scheduler]) with the currencies
 you want to store:
 
 ```rb
-ActiveCurrency::AddRates.call(%w[EUR USD])
+ActiveCurrency::AddRates.call(currencies: %w[EUR USD])
 ```
 
 You can then exchange money by using the Money gem helpers:
@@ -70,10 +70,10 @@ the currency rates and fill it for the first time.
 Call the following regularly in a scheduled job:
 
 ```rb
-ActiveCurrency::AddRates.call(%w[EUR USD])
+ActiveCurrency::AddRates.call(currencies: %w[EUR USD])
 ```
 
-The first currency you give to `AddRates` is considered the default currency
+The first currency you give in `currencies` is considered the default currency
 against which other currency rates will be guessed if they are unavailable.
 
 ### Fetching from the European Central Bank
@@ -98,7 +98,7 @@ You can provide any Money-compatible bank when calling
 `ActiveCurrency::AddRates`:
 
 ```rb
-ActiveCurrency::AddRates.call(%w[EUR USD], bank: …)
+ActiveCurrency::AddRates.call(…, bank: …)
 ```
 
 ## Tests
