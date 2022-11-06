@@ -4,6 +4,9 @@ require:
 
 AllCops:
   TargetRubyVersion: 3.0
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  ExtraDetails: true
   NewCops: enable
   Exclude:
     - spec/dummy/db/schema.rb
@@ -11,6 +14,9 @@ AllCops:
 
 Gemspec/RequiredRubyVersion:
   Enabled: false
+
+Layout/LineLength:
+  Max: 80
 
 Metrics/BlockLength:
   Exclude:

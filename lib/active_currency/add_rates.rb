@@ -5,8 +5,13 @@ module ActiveCurrency
   class AddRates
     include AfterCommitEverywhere
 
-    def initialize(currencies, bank: nil)
-      @currencies = currencies.map(&:to_s).map(&:upcase)
+    def initialize(deprecated_currencies = nil, currencies: nil, bank: nil)
+      @currencies =
+        (currencies || deprecated_currencies).map(&:to_s).map(&:upcase)
+      if @currencies.size < 2
+        raise ArgumentError, 'At least two currencies are required'
+      end
+
       @bank = bank || ActiveCurrency.remote_bank
     end
 
