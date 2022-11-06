@@ -116,13 +116,13 @@ Please file issues and pull requests
 Install:
 
 ```sh
-BUNDLE_GEMFILE=Gemfile-rails6.0 bundle install
+BUNDLE_GEMFILE=Gemfile-rails7.0 bundle install
 ```
 
 Launch specs and linters:
 
 ```sh
-BUNDLE_GEMFILE=Gemfile-rails6.0 bin/rake
+BUNDLE_GEMFILE=Gemfile-rails7.0 bin/rake
 ```
 
 ## Release
@@ -132,12 +132,8 @@ Update `CHANGELOG.md`, update version in `lib/active_currency/version.rb`.
 Then:
 
 ```sh
-gem install bundler:1.17.2
-BUNDLE_GEMFILE=Gemfile-rails4.2 bundle update
-BUNDLE_GEMFILE=Gemfile-rails5.2 bundle update
-
-gem install bundler:2.1.2
-BUNDLE_GEMFILE=Gemfile-rails6.0 bundle update
+BUNDLE_GEMFILE=Gemfile-rails6.1 bundle update
+BUNDLE_GEMFILE=Gemfile-rails7.0 bundle update
 
 git add CHANGELOG.md lib/active_currency/version.rb Gemfile-rails*.lock
 git commit -m v`ruby -r./lib/active_currency/version <<< 'puts ActiveCurrency::VERSION'`

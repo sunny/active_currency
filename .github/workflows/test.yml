@@ -1,0 +1,32 @@
+name: Test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        gemfile:
+          - Gemfile-rails6.1
+          - Gemfile-rails7.0
+
+    env:
+      RAILS_ENV: test
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Set up database
+        run: bin/rails db:setup
+
+      - name: RSpec
+        run: bin/rspec --format RSpec::Github::Formatter --format progress

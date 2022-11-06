@@ -3,6 +3,7 @@
 require 'active_currency/migration'
 
 class CreateActiveCurrencyRates < ActiveCurrency::Migration
+  # rubocop:disable Metrics/MethodLength
   def change
     create_table :active_currency_rates do |t|
       t.string :from
@@ -22,4 +23,5 @@ class CreateActiveCurrencyRates < ActiveCurrency::Migration
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end
