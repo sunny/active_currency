@@ -3,9 +3,9 @@
 module ActiveCurrency
   # Store the latest currency rates.
   class AddRates
-    def initialize(currencies, bank: EuCentralBank.new)
+    def initialize(currencies, bank: nil)
       @currencies = currencies.map(&:to_s).map(&:upcase)
-      @bank = bank
+      @bank = bank || EuCentralBank.new
     end
 
     def call
@@ -48,7 +48,7 @@ module ActiveCurrency
       inverse = hash[[to, from]]
       return 1.fdiv(inverse) if inverse
 
-      # Rate going through the first currency (desperate)
+      # Rate going through the main currency (desperate)
       from_main = hash[[from, main_currency]]
       to_main = hash[[main_currency, to]]
       return from_main * to_main if from_main && to_main
