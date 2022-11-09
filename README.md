@@ -108,7 +108,9 @@ you can do so by setting the `multiplier` option:
 
 ```rb
 ActiveCurrency.configure do |config|
-  config.multiplier = 1.01
+  config.multiplier = {
+    ["EUR", "USD"] => 1.1,
+  }
 end
 ```
 

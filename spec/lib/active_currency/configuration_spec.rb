@@ -18,8 +18,8 @@ RSpec.describe ActiveCurrency::Configuration do
   end
 
   it 'accepts a multiplier' do
-    expect(configuration.multiplier).to eq(1)
-    configuration.multiplier = 2
-    expect(configuration.multiplier).to eq(2)
+    expect(configuration.multiplier).to eq({})
+    configuration.multiplier = { ["CAD", "USD"] => 1.42 }
+    expect(configuration.multiplier).to eq(["CAD", "USD"] => 1.42)
   end
 end
