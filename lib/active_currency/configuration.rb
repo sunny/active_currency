@@ -5,7 +5,7 @@ module ActiveCurrency
     def initialize
       @remote_bank = :eu_central_bank
       @open_exchange_rates_app_id = nil
-      @multiplier = 1
+      @multiplier = {}
     end
 
     attr_accessor :remote_bank,

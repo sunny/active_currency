@@ -30,7 +30,8 @@ module ActiveCurrency
 
       in_transaction do
         rates_hash.each do |(from, to), rate|
-          store.add_rate(from, to, multiply_rate(rate))
+          rate = multiply_rate(from, to, rate)
+          store.add_rate(from, to, rate)
         end
       end
 
@@ -69,8 +70,8 @@ module ActiveCurrency
       raise "Unknown rate between #{from} and #{to}"
     end
 
-    def multiply_rate(rate)
-      ActiveCurrency.configuration.multiplier * rate
+    def multiply_rate(from, to, rate)
+      rate * ActiveCurrency.configuration.multiplier.fetch([from, to], 1)
     end
 
     def main_currency

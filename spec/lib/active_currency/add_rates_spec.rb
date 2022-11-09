@@ -116,10 +116,17 @@ RSpec.describe ActiveCurrency::AddRates do
       # Mock store
       let(:store) { instance_double ActiveCurrency::RateStore, add_rate: nil }
 
+      let(:multiplier) do
+        {
+          ["USD", "EUR"] => 1.1,
+          ["CAD", "EUR"] => 1.2,
+        }
+      end
+
       before do
         allow(ActiveCurrency.configuration)
           .to receive(:multiplier)
-          .and_return(1.1)
+          .and_return(multiplier)
 
         allow(ActiveCurrency::RateStore).to receive(:new) { store }
       end
@@ -133,22 +140,22 @@ RSpec.describe ActiveCurrency::AddRates do
 
         expect(store)
           .to have_received(:add_rate)
-          .with('EUR', 'USD', 1.42 * 1.1)
+          .with('EUR', 'USD', 1.42)
         expect(store)
           .to have_received(:add_rate)
           .with('USD', 'EUR', (1 / 1.42) * 1.1)
         expect(store)
           .to have_received(:add_rate)
-          .with('EUR', 'CAD', 1.12 * 1.1)
+          .with('EUR', 'CAD', 1.12)
         expect(store)
           .to have_received(:add_rate)
-          .with('CAD', 'EUR', (1 / 1.12) * 1.1)
+          .with('CAD', 'EUR', (1 / 1.12) * 1.2)
         expect(store)
           .to have_received(:add_rate)
-          .with('CAD', 'USD', a_value_within(0.0000001).of((1.42 / 1.12) * 1.1))
+          .with('CAD', 'USD', a_value_within(0.0000001).of((1.42 / 1.12)))
         expect(store)
           .to have_received(:add_rate)
-          .with('USD', 'CAD', a_value_within(0.0000001).of((1.12 / 1.42) * 1.1))
+          .with('USD', 'CAD', a_value_within(0.0000001).of((1.12 / 1.42)))
       end
     end
   end
