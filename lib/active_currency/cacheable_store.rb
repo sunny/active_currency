@@ -25,7 +25,7 @@ module ActiveCurrency
     private
 
     def cache_key(from, to)
-      ['active_currency_rate', from, to]
+      ["active_currency_rate", from, to]
     end
   end
 end

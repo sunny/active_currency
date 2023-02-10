@@ -16,7 +16,7 @@ module ActiveCurrency
 
     def initialize(currencies:, bank:)
       if currencies.size < 2
-        raise ArgumentError, 'At least two currencies are required'
+        raise ArgumentError, "At least two currencies are required"
       end
 
       @currencies = currencies.map(&:to_s).map(&:upcase)

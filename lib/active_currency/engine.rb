@@ -8,7 +8,7 @@ module ActiveCurrency
       next if app.root.to_s.match(root.to_s)
 
       paths = ActiveRecord::Tasks::DatabaseTasks.migrations_paths
-      config.paths['db/migrate'].expanded.each do |path|
+      config.paths["db/migrate"].expanded.each do |path|
         paths << path
       end
       paths.uniq!

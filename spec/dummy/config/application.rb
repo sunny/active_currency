@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 
 Bundler.require(*Rails.groups)
 
-require 'active_currency'
+require "active_currency"
 
 module Dummy
   class Application < Rails::Application

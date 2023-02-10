@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
 # Declare your gem's dependencies in active_currency.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
