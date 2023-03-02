@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+## v1.4.0
+
 Changes:
 - Support the money-open-exchange-rates gem.
 - Drop support for Rails < 6.1.

@@ -159,7 +159,7 @@ Then:
 BUNDLE_GEMFILE=Gemfile-rails6.1 bundle update
 BUNDLE_GEMFILE=Gemfile-rails7.0 bundle update
 
-git add CHANGELOG.md lib/active_currency/version.rb Gemfile-rails*.lock
+git add CHANGELOG.md lib/active_currency/version.rb Gemfile-rails*
 git commit -m v`ruby -r./lib/active_currency/version <<< 'puts ActiveCurrency::VERSION'`
 bin/rake release
 ```
