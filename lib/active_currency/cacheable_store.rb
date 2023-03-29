@@ -9,7 +9,7 @@ module ActiveCurrency
     def get_rate(from, to, date = nil)
       return super if date
 
-      Rails.cache.fetch(cache_key(from, to)) do
+      Rails.cache.fetch(cache_key(from, to), expires_in: 1.hour) do
         super
       end
     end

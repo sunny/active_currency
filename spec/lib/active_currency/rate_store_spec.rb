@@ -26,14 +26,16 @@ RSpec.describe ActiveCurrency::RateStore do
       it "calls the database" do
         expect(get_rate).to eq(1.5)
         expect(ActiveCurrency::Rate)
-          .to have_received(:value_for).with("EUR", "USD", nil)
+          .to have_received(:value_for)
+          .with("EUR", "USD", nil)
       end
 
       it "calls the cache" do
         get_rate
 
         expect(Rails.cache)
-          .to have_received(:fetch).with(%w[active_currency_rate EUR USD])
+          .to have_received(:fetch)
+          .with(%w[active_currency_rate EUR USD], expires_in: 1.hour)
       end
 
       context "with a full cache" do
@@ -59,7 +61,8 @@ RSpec.describe ActiveCurrency::RateStore do
       it "calls the database" do
         expect(store.get_rate("EUR", "USD", date)).to eq(1.5)
         expect(ActiveCurrency::Rate)
-          .to have_received(:value_for).with("EUR", "USD", date)
+          .to have_received(:value_for)
+          .with("EUR", "USD", date)
       end
 
       it "does not call the cache" do
@@ -86,7 +89,8 @@ RSpec.describe ActiveCurrency::RateStore do
       store.add_rate("EUR", "USD", 1.5)
 
       expect(Rails.cache)
-        .to have_received("delete").with(%w[active_currency_rate EUR USD])
+        .to have_received("delete")
+        .with(%w[active_currency_rate EUR USD])
     end
 
     context "with a date" do

@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning].
 
 ## Unreleased
 
+Fix:
+- Add an expiry to Rails cache store entries.
+
 ## v1.4.0
 
 Changes:
